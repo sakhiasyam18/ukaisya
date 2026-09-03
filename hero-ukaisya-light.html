@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ukaisya — Manis Alami dari Tebu Pilihan</title>
+  <meta name="description"
+    content="Ukaisya oleh PT Tiga Dewi Timur Raya — Produsen gula merah tebu berkualitas dari Kediri sejak 1997. Melayani industri, HORECA, dan rumah tangga.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+            'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            'ukaisya': {
+              orange: '#ff6b00',
+              green: '#22c55e',
+              dark: '#1f2937',
+              light: '#f9fafb',
+            }
+          },
+          boxShadow: {
+            'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
+            'glow': '0 0 40px rgba(255, 107, 0, 0.15)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lenis CSS (Optional for base styles) -->
+  <style>
+    html.lenis, html.lenis body {
+      height: auto;
+      width: 100vw;
+      overflow-x: hidden;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+    
+    body {
+      background-color: #ffffff;
+      color: #1f2937;
+    }
+
+    /* Subtle background grid */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    }
+
+    /* Button Hover Effect */
+    .btn-orange {
+      background: linear-gradient(135deg, #ff8a00, #ff6b00);
+      transition: all 0.3s ease;
+    }
+    .btn-orange:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(255, 107, 0, 0.4);
+    }
+  </style>
+</head>
+
+<body class="font-body antialiased relative">
+
+  <!-- Background Grid -->
+  <div class="fixed inset-0 bg-grid pointer-events-none z-[-1]"></div>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 motion-element">
+          <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-xl">
+            U
+          </div>
+          <div>
+            <span class="text-xl font-bold tracking-tight text-gray-900">ukaisya.</span>
+            <span class="block text-[10px] text-gray-500 uppercase tracking-widest font-semibold mt-[-2px]">PT. Tiga Dewi Timur Raya</span>
+          </div>
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-8 motion-element">
+          <a href="#" class="text-sm font-semibold text-gray-900 hover:text-ukaisya-orange transition-colors">HOME</a>
+          <a href="#" class="text-sm font-semibold text-gray-500 hover:text-ukaisya-orange transition-colors">TENTANG KAMI</a>
+          <a href="#" class="text-sm font-semibold text-gray-500 hover:text-ukaisya-orange transition-colors">PRODUK KAMI</a>
+          <a href="#" class="text-sm font-semibold text-gray-500 hover:text-ukaisya-orange transition-colors">MARKET PLACE</a>
+        </div>
+
+        <!-- Right Side (Cart / Contact) -->
+        <div class="flex items-center gap-6 motion-element">
+          <div class="hidden sm:flex items-center gap-2 font-bold text-ukaisya-orange">
+            <span>Rp16,000.00</span>
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span class="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">1</span>
+            </div>
+          </div>
+          
+          <button class="md:hidden text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ============================================ -->
+  <!-- HERO SECTION                                 -->
+  <!-- ============================================ -->
+  <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <!-- Center Content -->
+      <div class="flex flex-col items-center text-center max-w-4xl mx-auto space-y-8 relative z-10">
+        
+        <!-- Eyebrow -->
+        <div class="motion-hero-text inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-100 text-ukaisya-orange font-semibold text-sm">
+          <span class="text-lg">🍯</span> Manis Alami dari Tebu Pilihan
+        </div>
+
+        <!-- Headline -->
+        <h1 class="motion-hero-text text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
+          Gula Merah Tebu <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-ukaisya-orange to-[#ffb800]">Premium Quality</span>
+        </h1>
+
+        <!-- Description -->
+        <p class="motion-hero-text text-lg md:text-xl text-gray-500 max-w-2xl leading-relaxed">
+          Nikmati keaslian <span class="font-bold text-gray-700">Gula Merah Tebu Premium Ukaisya</span> diproses dari bahan baku terbaik, bersertifikasi 
+          <span class="font-bold text-green-600">HALAL & BPOM</span>. Dapatkan promo spesial hanya di toko resmi Ukaisya!
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="motion-hero-text flex items-center gap-4 pt-4">
+          <a href="#produk" class="btn-orange text-white font-bold py-4 px-8 rounded-full text-base lg:text-lg shadow-glow">
+            Lihat Produk
+          </a>
+          <a href="https://wa.me/6281398371777" class="bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 font-bold py-4 px-8 rounded-full text-base lg:text-lg transition-colors shadow-sm">
+            Hubungi Sales
+          </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="motion-hero-text flex items-center justify-center gap-6 pt-6 opacity-70">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span class="text-sm font-semibold text-gray-600">Sertifikasi HALAL</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span class="text-sm font-semibold text-gray-600">BPOM</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span class="text-sm font-semibold text-gray-600">Bahan Baku Premium</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hero Image / Banner Hook -->
+      <div class="mt-16 lg:mt-24 relative mx-auto max-w-5xl rounded-3xl overflow-hidden shadow-2xl motion-hero-image">
+        <!-- Using a placeholder image that represents brown sugar / sugarcane aesthetic -->
+        <img src="https://images.unsplash.com/photo-1598188173422-9218d6e32d1e?q=80&w=2070&auto=format&fit=crop" 
+             alt="Ukaisya Gula Merah Tebu Premium Banner" 
+             class="w-full h-auto aspect-[16/9] lg:aspect-[21/9] object-cover" />
+        
+        <!-- Decorative Overlay Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+        
+        <!-- Floating Element on Image -->
+        <div class="absolute bottom-6 left-6 lg:bottom-10 lg:left-10 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-xl max-w-xs">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-ukaisya-orange font-bold text-xl">
+              %
+            </div>
+            <div>
+              <p class="text-sm font-bold text-gray-900">Promo Khusus</p>
+              <p class="text-xs text-gray-500">Mulai dari Rp16.000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scripts: Lenis for Smooth Scroll & Motion for Animations -->
+  
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  
+  <!-- Motion (formerly Motion One / Vanilla Framer Motion) -->
+  <script type="module">
+    import { animate, stagger, spring } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+
+    // Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+      direction: 'vertical', 
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Animations using Motion (Framer Motion API for vanilla JS)
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // Animate Navbar
+      animate(".motion-element", 
+        { y: [-20, 0], opacity: [0, 1] }, 
+        { delay: stagger(0.1), duration: 0.8, easing: [0.22, 1, 0.36, 1] }
+      );
+
+      // Animate Hero Text Elements
+      animate(".motion-hero-text", 
+        { y: [40, 0], opacity: [0, 1] }, 
+        { delay: stagger(0.15, { start: 0.3 }), duration: 1, easing: spring({ stiffness: 100, damping: 20 }) }
+      );
+
+      // Animate Hero Image Hook
+      animate(".motion-hero-image",
+        { y: [80, 0], opacity: [0, 1], scale: [0.95, 1] },
+        { delay: 0.9, duration: 1.2, easing: [0.22, 1, 0.36, 1] }
+      );
+
+    });
+  </script>
+
+</body>
+
+</html>

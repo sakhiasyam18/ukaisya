@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ukaisya — Trust Bar & Credibility</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          animation: {
+            'marquee': 'marquee 25s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-100%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #1f2937;
+    }
+    
+    /* Subtle border gradient */
+    .border-gradient-b {
+      border-bottom: 1px solid transparent;
+      border-image: linear-gradient(to right, transparent, rgba(0,0,0,0.05), transparent) 1;
+    }
+    .border-gradient-t {
+      border-top: 1px solid transparent;
+      border-image: linear-gradient(to right, transparent, rgba(0,0,0,0.05), transparent) 1;
+    }
+
+    /* Grayscale to Color hover effect */
+    .partner-logo {
+      filter: grayscale(100%) opacity(0.6);
+      transition: all 0.4s ease;
+    }
+    .partner-logo:hover {
+      filter: grayscale(0%) opacity(1);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body class="font-body antialiased">
+
+  <!-- ============================================ -->
+  <!-- TRUST BAR SECTION                            -->
+  <!-- ============================================ -->
+  <section class="py-12 bg-gray-50/50 border-gradient-t border-gradient-b overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      
+      <p class="text-center text-sm font-semibold text-gray-400 tracking-widest uppercase mb-8">
+        Membangun Inovasi Bersama Institusi & Mitra Terkemuka
+      </p>
+
+      <!-- Desktop & Tablet View (Grid/Flex) -->
+      <div class="hidden md:flex flex-wrap justify-center items-center gap-12 lg:gap-20">
+        
+        <!-- Partner 1: ITS -->
+        <div class="partner-logo flex items-center gap-3 cursor-default">
+          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold text-lg">
+            🎓
+          </div>
+          <span class="font-bold text-gray-800 tracking-tight text-lg">ITS<span class="font-medium text-gray-500 block text-xs">Surabaya</span></span>
+        </div>
+
+        <!-- Partner 2: UM -->
+        <div class="partner-logo flex items-center gap-3 cursor-default">
+          <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold text-lg">
+            🎓
+          </div>
+          <span class="font-bold text-gray-800 tracking-tight text-lg">UM<span class="font-medium text-gray-500 block text-xs">Universitas Negeri Malang</span></span>
+        </div>
+
+        <!-- Partner 3: UNITRI -->
+        <div class="partner-logo flex items-center gap-3 cursor-default">
+          <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-700 font-bold text-lg">
+            🎓
+          </div>
+          <span class="font-bold text-gray-800 tracking-tight text-lg">UNITRI<span class="font-medium text-gray-500 block text-xs">Malang</span></span>
+        </div>
+
+        <!-- Partner 4: Polije -->
+        <div class="partner-logo flex items-center gap-3 cursor-default">
+          <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-teal-700 font-bold text-lg">
+            🎓
+          </div>
+          <span class="font-bold text-gray-800 tracking-tight text-lg">Polije<span class="font-medium text-gray-500 block text-xs">Jember</span></span>
+        </div>
+
+        <!-- Partner 5: Misi Dagang -->
+        <div class="partner-logo flex items-center gap-3 cursor-default">
+          <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-700 font-bold text-lg">
+            🤝
+          </div>
+          <span class="font-bold text-gray-800 tracking-tight text-lg">Misi Dagang<span class="font-medium text-gray-500 block text-xs">Provinsi Jawa Timur</span></span>
+        </div>
+
+      </div>
+
+      <!-- Mobile View (Infinite Marquee) -->
+      <div class="md:hidden relative flex overflow-x-hidden group">
+        <!-- Gradient Fades for Marquee -->
+        <div class="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-gray-50/50 to-transparent z-10"></div>
+        <div class="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-gray-50/50 to-transparent z-10"></div>
+
+        <div class="animate-marquee flex whitespace-nowrap items-center gap-12">
+          <!-- Item 1 -->
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">ITS Surabaya</span>
+          </div>
+          <!-- Item 2 -->
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">UM Malang</span>
+          </div>
+          <!-- Item 3 -->
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">UNITRI</span>
+          </div>
+          <!-- Item 4 -->
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">Polije</span>
+          </div>
+          <!-- Item 5 -->
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">🤝</div>
+            <span class="font-bold text-gray-800 text-base">Misi Dagang Jatim</span>
+          </div>
+        </div>
+        
+        <!-- Duplicate for seamless looping -->
+        <div class="animate-marquee flex whitespace-nowrap items-center gap-12 pl-12 aria-hidden='true'">
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">ITS Surabaya</span>
+          </div>
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">UM Malang</span>
+          </div>
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">UNITRI</span>
+          </div>
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">🎓</div>
+            <span class="font-bold text-gray-800 text-base">Polije</span>
+          </div>
+          <div class="partner-logo flex items-center gap-3">
+            <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">🤝</div>
+            <span class="font-bold text-gray-800 text-base">Misi Dagang Jatim</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+
+</html>
