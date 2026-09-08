@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ukaisya — Segmentasi Solusi</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'body': ['"Plus Jakarta Sans"', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { background: #ffffff; color: #1f2937; }
+    .card-segment {
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .card-segment:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
+    }
+    .card-segment:hover .card-icon {
+      transform: scale(1.1);
+    }
+    .card-icon {
+      transition: transform 0.4s ease;
+    }
+  </style>
+</head>
+
+<body class="font-body antialiased">
+
+  <!-- ============================================ -->
+  <!-- SECTION 3: SEGMENTASI SOLUSI / GATEWAY       -->
+  <!-- ============================================ -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500 mb-3">Solusi Untuk Anda</p>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
+          Satu Produsen, <br class="hidden sm:block">Tiga Segmen Terlayani
+        </h2>
+        <p class="mt-5 text-lg text-gray-500 leading-relaxed">
+          Apapun skala kebutuhan Anda — dari pabrik besar, kafe favorit, hingga dapur rumah — Ukaisya siap menjadi mitra gula merah terpercaya.
+        </p>
+      </div>
+
+      <!-- 3 Cards Grid -->
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+
+        <!-- Card 1: Industri / B2B -->
+        <div class="card-segment bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-3xl p-8 lg:p-10 group">
+          <!-- Icon -->
+          <div class="card-icon w-16 h-16 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center text-3xl mb-6">
+            🏭
+          </div>
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Solusi Industri</h3>
+          <p class="text-sm font-semibold text-orange-500 mb-4">B2B & Grosir Skala Besar</p>
+          <!-- Description -->
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">
+            Kapasitas produksi <span class="font-bold text-gray-700">hingga 4 Ton per hari</span>.
+            Tersedia kemasan bulk <span class="font-bold text-gray-700">Gula Bathok 25kg</span> untuk kebutuhan manufaktur, pabrik makanan & minuman.
+          </p>
+          <!-- Stats -->
+          <div class="flex items-center gap-4 mb-6 py-4 border-y border-gray-100">
+            <div>
+              <p class="text-2xl font-extrabold text-gray-900">4 Ton</p>
+              <p class="text-xs text-gray-400 font-medium">Kapasitas / Hari</p>
+            </div>
+            <div class="w-px h-10 bg-gray-200"></div>
+            <div>
+              <p class="text-2xl font-extrabold text-gray-900">25 kg</p>
+              <p class="text-xs text-gray-400 font-medium">Kemasan Bulk</p>
+            </div>
+          </div>
+          <!-- CTA -->
+          <a href="https://wa.me/6281398371777?text=Halo%20Ukaisya%2C%20saya%20ingin%20minta%20penawaran%20untuk%20kebutuhan%20industri." target="_blank"
+             class="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg">
+            Minta Penawaran
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 2: HORECA -->
+        <div class="card-segment bg-gradient-to-br from-orange-50/50 to-white border border-orange-100/50 rounded-3xl p-8 lg:p-10 group relative overflow-hidden">
+          <!-- Popular badge -->
+          <div class="absolute top-5 right-5 bg-orange-500 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+            Populer
+          </div>
+          <!-- Icon -->
+          <div class="card-icon w-16 h-16 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center text-3xl mb-6">
+            ☕
+          </div>
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Solusi HORECA</h3>
+          <p class="text-sm font-semibold text-orange-500 mb-4">Kafe, Restoran & Hospitality</p>
+          <!-- Description -->
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">
+            Pilihan gula merah ideal untuk <span class="font-bold text-gray-700">menu kopi susu gula aren, jamu, dan hidangan tradisional</span>.
+            Tersedia dalam berbagai ukuran kemasan sesuai kebutuhan bisnis F&B Anda.
+          </p>
+          <!-- Features -->
+          <div class="space-y-2 mb-6 py-4 border-y border-orange-100/50">
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Mudah larut untuk minuman
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Rasa manis alami konsisten
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Suplai berkala terjamin
+            </div>
+          </div>
+          <!-- CTA -->
+          <a href="https://wa.me/6281398371777?text=Halo%20Ukaisya%2C%20saya%20ingin%20konsultasi%20kebutuhan%20gula%20merah%20untuk%20bisnis%20HORECA." target="_blank"
+             class="inline-flex items-center gap-2 text-white font-bold text-sm px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
+             style="background: linear-gradient(135deg, #ff8a00, #ff6b00);">
+            Konsultasi Kebutuhan
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 3: Rumah Tangga / Retail -->
+        <div class="card-segment bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-3xl p-8 lg:p-10 group">
+          <!-- Icon -->
+          <div class="card-icon w-16 h-16 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center text-3xl mb-6">
+            🏠
+          </div>
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Solusi Rumah Tangga</h3>
+          <p class="text-sm font-semibold text-green-600 mb-4">Konsumen Retail & Eceran</p>
+          <!-- Description -->
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">
+            Gula merah tebu asli untuk <span class="font-bold text-gray-700">masakan sehari-hari, minuman tradisional, dan jamu</span>.
+            Kemasan praktis mulai dari <span class="font-bold text-gray-700">250g hingga 1kg</span>.
+          </p>
+          <!-- Price hint -->
+          <div class="mb-6 py-4 border-y border-gray-100">
+            <p class="text-xs text-gray-400 font-medium mb-1">Mulai dari</p>
+            <p class="text-3xl font-extrabold text-gray-900">Rp16.000 <span class="text-sm font-medium text-gray-400">/ 500g</span></p>
+          </div>
+          <!-- CTA -->
+          <a href="#produk"
+             class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold text-sm px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg">
+            Beli Eceran
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

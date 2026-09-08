@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ukaisya — Katalog Produk Unggulan</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'body': ['"Plus Jakarta Sans"', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { background: #f9fafb; color: #1f2937; }
+    .product-card {
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.08);
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+    .product-img {
+      transition: transform 0.5s ease;
+    }
+  </style>
+</head>
+
+<body class="font-body antialiased">
+
+  <!-- ============================================ -->
+  <!-- SECTION 4: KATALOG PRODUK UNGGULAN           -->
+  <!-- ============================================ -->
+  <section id="produk" class="py-20 lg:py-28 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500 mb-3">Produk Unggulan Kami</p>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
+          Gula Merah Tebu Premium
+        </h2>
+        <p class="mt-5 text-lg text-gray-500 leading-relaxed">
+          Dibuat dari nira tebu pilihan petani Kediri. Tersedia dalam berbagai kemasan untuk setiap kebutuhan Anda.
+        </p>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Product 1: Gula Merah Awur / Jawa 500g -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-gray-100">
+          <!-- Image -->
+          <div class="relative aspect-square overflow-hidden bg-orange-50">
+            <img src="https://images.unsplash.com/photo-1604431696980-07e518647610?q=80&w=600&auto=format&fit=crop"
+                 alt="Gula Merah Awur 500g"
+                 class="product-img w-full h-full object-cover" />
+            <!-- Badge -->
+            <div class="absolute top-3 left-3 bg-orange-500 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+              Best Seller
+            </div>
+          </div>
+          <!-- Info -->
+          <div class="p-5">
+            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">500g</p>
+            <h3 class="text-base font-bold text-gray-900 mb-1">Gula Merah Awur</h3>
+            <p class="text-xs text-gray-500 leading-relaxed mb-4">Mudah larut, cocok untuk masakan, minuman, jamu, dan kopi.</p>
+            <!-- Price -->
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-xl font-extrabold text-gray-900">Rp16.000</span>
+            </div>
+            <!-- CTA -->
+            <a href="#" class="block w-full text-center bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm py-2.5 rounded-xl transition-colors">
+              Lihat Detail
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 2: Gula Merah Kristal Premium 250g -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-gray-100">
+          <div class="relative aspect-square overflow-hidden bg-amber-50">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=600&auto=format&fit=crop"
+                 alt="Gula Merah Kristal Premium 250g"
+                 class="product-img w-full h-full object-cover" />
+            <div class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+              Premium
+            </div>
+          </div>
+          <div class="p-5">
+            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">250g</p>
+            <h3 class="text-base font-bold text-gray-900 mb-1">Gula Merah Kristal Premium</h3>
+            <p class="text-xs text-gray-500 leading-relaxed mb-4">Tekstur halus, mudah larut. Ideal untuk kopi dan teh spesial.</p>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-xl font-extrabold text-gray-900">Rp18.000</span>
+            </div>
+            <a href="#" class="block w-full text-center bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm py-2.5 rounded-xl transition-colors">
+              Lihat Detail
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 3: Gula Merah Bathok 1kg -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-gray-100">
+          <div class="relative aspect-square overflow-hidden bg-yellow-50">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop"
+                 alt="Gula Merah Bathok 1kg"
+                 class="product-img w-full h-full object-cover" />
+          </div>
+          <div class="p-5">
+            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">1 kg</p>
+            <h3 class="text-base font-bold text-gray-900 mb-1">Gula Merah Tebu Bathok</h3>
+            <p class="text-xs text-gray-500 leading-relaxed mb-4">Bentuk tradisional cetak bathok. Untuk rumah tangga dan kuliner.</p>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-xl font-extrabold text-gray-900">Rp16.500</span>
+            </div>
+            <a href="#" class="block w-full text-center bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm py-2.5 rounded-xl transition-colors">
+              Lihat Detail
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 4: Gula Merah Bathok 25kg (Bulk) -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-gray-100">
+          <div class="relative aspect-square overflow-hidden bg-stone-50">
+            <img src="https://images.unsplash.com/photo-1530836176759-510f58baebf4?q=80&w=600&auto=format&fit=crop"
+                 alt="Gula Merah Bathok 25kg"
+                 class="product-img w-full h-full object-cover" />
+            <div class="absolute top-3 left-3 bg-gray-900 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+              B2B / Bulk
+            </div>
+          </div>
+          <div class="p-5">
+            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">25 kg</p>
+            <h3 class="text-base font-bold text-gray-900 mb-1">Gula Merah Bathok Bulk</h3>
+            <p class="text-xs text-gray-500 leading-relaxed mb-4">Kemasan industri untuk skala besar. MOQ dan harga khusus B2B.</p>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-lg font-extrabold text-gray-900">Hubungi Sales</span>
+            </div>
+            <a href="https://wa.me/6281398371777?text=Halo%20Ukaisya%2C%20saya%20tertarik%20dengan%20Gula%20Merah%20Bathok%2025kg." target="_blank"
+               class="block w-full text-center text-white font-bold text-sm py-2.5 rounded-xl transition-colors"
+               style="background: linear-gradient(135deg, #ff8a00, #ff6b00);">
+              Minta Penawaran
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom note -->
+      <p class="text-center text-sm text-gray-400 mt-10">
+        Semua produk Ukaisya telah terdaftar di BPOM dan bersertifikasi Halal. Harga dapat berubah sewaktu-waktu.
+      </p>
+
+    </div>
+  </section>
+
+</body>
+</html>

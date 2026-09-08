@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ukaisya — Transparansi Proses Produksi</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'body': ['"Plus Jakarta Sans"', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { background: #ffffff; color: #1f2937; }
+    .step-card {
+      transition: all 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.08);
+    }
+    .step-number {
+      background: linear-gradient(135deg, #ff8a00, #ff6b00);
+    }
+  </style>
+</head>
+
+<body class="font-body antialiased">
+
+  <!-- ============================================ -->
+  <!-- SECTION 6: TRANSPARANSI PROSES PRODUKSI      -->
+  <!-- ============================================ -->
+  <section id="proses" class="py-20 lg:py-28 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500 mb-3">Proses Produksi</p>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
+          Dari Nira Tebu Segar Hingga Gula Merah Berkualitas
+        </h2>
+        <p class="mt-5 text-lg text-gray-500 leading-relaxed">
+          8 tahap produksi terkontrol dengan standar kebersihan tinggi dan teknologi food-grade.
+        </p>
+      </div>
+
+      <!-- Technology Highlight -->
+      <div class="bg-white rounded-3xl border border-gray-100 p-8 lg:p-12 mb-16 shadow-sm">
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+          <!-- Image -->
+          <div class="rounded-2xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop"
+                 alt="Teknologi Produksi Ukaisya"
+                 class="w-full h-auto aspect-video object-cover" />
+          </div>
+          <!-- Text -->
+          <div>
+            <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
+              ⚙️ Highlight Teknologi
+            </div>
+            <h3 class="text-2xl lg:text-3xl font-extrabold text-gray-900 mb-4">
+              Wajan Masak Food-Grade SS304
+            </h3>
+            <p class="text-gray-500 leading-relaxed mb-6">
+              Ukaisya menggunakan <span class="font-bold text-gray-700">wajan masak berbahan Stainless Steel 304 (food-grade)</span> 
+              dengan kapasitas <span class="font-bold text-gray-700">2.300 Liter</span>, dilengkapi sistem mekanisasi pengadukan otomatis. 
+              Inovasi ini merupakan hasil kolaborasi dengan <span class="font-bold text-gray-700">ITS Surabaya</span> dan mitra akademik, 
+              memastikan efisiensi dan konsistensi kualitas produk.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+              <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full">
+                <span class="text-lg">🔬</span>
+                <span class="text-sm font-semibold text-gray-700">SS304 Food-Grade</span>
+              </div>
+              <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full">
+                <span class="text-lg">⚡</span>
+                <span class="text-sm font-semibold text-gray-700">2.300 Liter</span>
+              </div>
+              <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full">
+                <span class="text-lg">🤖</span>
+                <span class="text-sm font-semibold text-gray-700">Mekanisasi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8-Step Process Timeline -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <!-- Step 1 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">1</div>
+          <h4 class="font-bold text-gray-900 mb-1">Penerimaan Nira</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Nira segar diterima langsung dari penggilingan tebu petani mitra.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">2</div>
+          <h4 class="font-bold text-gray-900 mb-1">Penyaringan</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Nira disaring untuk membuang kotoran dan partikel kasar.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">3</div>
+          <h4 class="font-bold text-gray-900 mb-1">Pemurnian</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Tahap pemurnian untuk menghasilkan nira bersih dan siap masak.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">4</div>
+          <h4 class="font-bold text-gray-900 mb-1">Pemasakan</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Dimasak dalam wajan SS304 2.300L dengan pengadukan mekanis terkontrol.</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">5</div>
+          <h4 class="font-bold text-gray-900 mb-1">Pencetakan</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Produk dicetak sesuai bentuk akhir: awur, kristal, atau bathok.</p>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">6</div>
+          <h4 class="font-bold text-gray-900 mb-1">Pendinginan</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Produk didinginkan dalam lingkungan terkontrol hingga suhu stabil.</p>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">7</div>
+          <h4 class="font-bold text-gray-900 mb-1">Kemasan Primer</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Kemasan primer ditutup untuk menjaga kebersihan dan kualitas produk.</p>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6">
+          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-4">8</div>
+          <h4 class="font-bold text-gray-900 mb-1">Kemasan & Label</h4>
+          <p class="text-sm text-gray-500 leading-relaxed">Kemasan sekunder dan pelabelan lengkap siap distribusi ke seluruh Indonesia.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
