@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ukaisya — Galeri Produk Part 2</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'body': ['"Plus Jakarta Sans"', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background: #ffffff;
+            color: #1f2937;
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.15);
+                opacity: 0.8;
+            }
+        }
+
+        .noise-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+        }
+
+        .shimmer-card {
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .shimmer-card:hover {
+            transform: scale(1.03);
+        }
+
+        .shimmer-card:active {
+            transform: scale(0.97);
+        }
+
+        @media (min-width: 1024px) {
+            .shimmer-card:active {
+                transform: scale(1.03);
+            }
+        }
+
+        .shimmer-card img {
+            transition: transform 0.7s ease;
+        }
+
+        .shimmer-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .shimmer-card .hover-gradient {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .shimmer-card:hover .hover-gradient {
+            opacity: 1;
+        }
+
+        .shimmer-card .label-slide {
+            transform: translateY(6px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .shimmer-card:hover .label-slide {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .lightbox-backdrop {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+
+<body class="font-body antialiased">
+
+    <!-- ============================================ -->
+    <!-- GALERI PART 2 — Lanjutan 10 Foto              -->
+    <!-- ============================================ -->
+    <section id="galeri-lanjutan" class="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
+
+        <!-- Ambient background -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute inset-0 bg-gradient-to-b from-white via-amber-50/20 to-orange-50/15"></div>
+            <div class="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(closest-side,rgba(255,138,0,0.07),transparent_70%)]"
+                style="animation: breathe 8s ease-in-out infinite"></div>
+            <div class="absolute bottom-[5%] right-[10%] w-[450px] h-[450px] rounded-full bg-[radial-gradient(closest-side,rgba(34,197,94,0.06),transparent_70%)]"
+                style="animation: breathe 10s ease-in-out infinite 2s"></div>
+            <div class="absolute top-[40%] right-[30%] w-[300px] h-[300px] rounded-full bg-[radial-gradient(closest-side,rgba(245,158,11,0.06),transparent_70%)]"
+                style="animation: breathe 12s ease-in-out infinite 4s"></div>
+        </div>
+        <div class="noise-overlay absolute inset-0"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+
+
+            <!-- ===== Bento Grid — 10 Items ===== -->
+            <!-- Pattern: Wide → Portrait×2 → Square+Wide → Portrait×2 → Wide → Square×2 -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-4">
+
+                <!-- 1. Perkebunan Tebu — Wide, row-span-2 on desktop -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[16/10] lg:row-span-2 lg:aspect-auto lg:h-full"
+                    onclick="openLightbox2(0)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-green-100 via-green-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Perkebunan tebu Kediri sumber bahan baku Ukaisya"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide lg:label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Perkebunan Tebu
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 2. Petani memanen tebu — 2 col wide on desktop -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:col-span-2 lg:aspect-[16/9]"
+                    onclick="openLightbox2(1)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-lime-100 via-lime-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Petani tebu mitra Ukaisya di Desa Ngetrep"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Petani Mitra
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 3. Nira tebu segar — Portrait -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:aspect-[4/3]"
+                    onclick="openLightbox2(2)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Nira tebu segar bahan baku gula merah"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Nira Segar
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 4. Pemasakan nira — Square on mobile, row-span-2 on desktop -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-square lg:row-span-2 lg:aspect-auto lg:h-full"
+                    onclick="openLightbox2(3)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Proses pemasakan nira tebu di pabrik Ukaisya"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Pemasakan
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 5. Pencetakan gula — Square on mobile, 2-col wide on desktop -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-square lg:col-span-2 lg:aspect-[16/9]"
+                    onclick="openLightbox2(4)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-yellow-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Pencetakan gula merah bathok Ukaisya"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Pencetakan
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 6. Pendinginan — Wide on mobile, square on desktop -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[21/9] lg:col-span-1 lg:aspect-square"
+                    onclick="openLightbox2(5)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-stone-100 via-stone-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Pendinginan gula merah tebu setelah dicetak"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Pendinginan
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 7. Pengemasan — Portrait -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:col-span-1 lg:aspect-[4/3]"
+                    onclick="openLightbox2(6)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-violet-100 via-violet-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Proses pengemasan produk gula merah Ukaisya"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Pengemasan
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 8. Gula merah di dapur — Portrait -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:col-span-1 lg:aspect-[4/3]"
+                    onclick="openLightbox2(7)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-rose-100 via-rose-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Gula merah Ukaisya di dapur rumah tangga"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Di Dapur
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 9. Es kopi gula aren — Wide on desktop -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[16/10] lg:col-span-2 lg:aspect-[16/9]"
+                    onclick="openLightbox2(8)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Es kopi gula merah tebu Ukaisya" class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Es Kopi Gula Merah
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 10. Gudang distribusi — Wide spanning 2 cols -->
+                <div class="shimmer-card group relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[21/9] lg:col-span-2 lg:aspect-[16/9]"
+                    onclick="openLightbox2(9)">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-sky-100 via-sky-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                    </div>
+                    <img src="https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+                        alt="Gudang distribusi gula merah Ukaisya siap kirim"
+                        class="absolute inset-0 w-full h-full object-cover" />
+                    <div
+                        class="hover-gradient absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-4 sm:left-4 z-10">
+                        <span
+                            class="label-slide px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/70 backdrop-blur-xl border border-white/40 text-gray-700 shadow-sm inline-block">
+                            Siap Distribusi
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- ===== Lightbox ===== -->
+    <div id="lightbox2" class="fixed inset-0 z-50 hidden">
+        <div class="lightbox-backdrop absolute inset-0 bg-black/50" onclick="closeLightbox2()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-5 pointer-events-none">
+            <div id="lb2-card"
+                class="relative w-full max-w-sm sm:max-w-lg aspect-[3/4] sm:aspect-[4/3] rounded-3xl overflow-hidden pointer-events-auto shadow-[0_32px_64px_rgba(0,0,0,0.25)] transform scale-90 opacity-0 transition-all duration-300">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.05),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]">
+                </div>
+                <img id="lb2-image" src="" alt="" class="absolute inset-0 w-full h-full object-cover" />
+                <!-- Info overlay -->
+                <div
+                    class="absolute bottom-0 inset-x-0 z-10 p-6 bg-gradient-to-t from-black/60 via-black/30 to-transparent">
+                    <h3 id="lb2-label" class="text-2xl font-bold text-white mb-1"></h3>
+                    <p id="lb2-subtitle" class="text-sm text-white/70"></p>
+                </div>
+                <button onclick="closeLightbox2()"
+                    class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 text-white active:scale-95 transition-all"
+                    aria-label="Tutup">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Lightbox Script ===== -->
+    <script>
+        const gallery2Items = [
+            {
+                label: "Perkebunan Tebu", subtitle: "Ladang tebu petani mitra di sekitar Desa Ngetrep, Kediri",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Petani Mitra", subtitle: "Kolaborasi langsung dengan petani tebu lokal Kediri",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Nira Tebu Segar", subtitle: "Bahan baku utama — nira segar hasil perasan tebu pilihan",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Pemasakan Nira", subtitle: "Dimasak dalam wajan SS304 2.300L berkapasitas food-grade",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Pencetakan Gula", subtitle: "Proses pencetakan gula merah sesuai bentuk akhir produk",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Pendinginan", subtitle: "Gula merah didinginkan hingga suhu stabil sebelum dikemas",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Pengemasan", subtitle: "Kemasan primer kedap udara menjaga kualitas produk",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Di Dapur Rumah", subtitle: "Gula merah Ukaisya siap untuk masakan dan minuman sehari-hari",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Es Kopi Gula Merah", subtitle: "Pilihan favorit kafe dan kedai kopi — larut sempurna",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+            {
+                label: "Siap Distribusi", subtitle: "Produk dikemas dan siap dikirim ke seluruh Indonesia",
+                image: "https://placehold.co/2400x2400/f8fafc/94a3b8?text=Foto+Dummy"
+            },
+        ];
+
+        function openLightbox2(index) {
+            const item = gallery2Items[index];
+            if (!item) return;
+            document.getElementById('lb2-image').src = item.image;
+            document.getElementById('lb2-image').alt = item.label;
+            document.getElementById('lb2-label').textContent = item.label;
+            document.getElementById('lb2-subtitle').textContent = item.subtitle;
+
+            const lightbox = document.getElementById('lightbox2');
+            const card = document.getElementById('lb2-card');
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => {
+                card.classList.remove('scale-90', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            });
+        }
+
+        function closeLightbox2() {
+            const card = document.getElementById('lb2-card');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-90', 'opacity-0');
+            setTimeout(() => {
+                document.getElementById('lightbox2').classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox2();
+        });
+    </script>
+
+</body>
+
+</html>
