@@ -19,29 +19,40 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <style>
-    body { background: #ffffff; color: #1f2937; }
+    body {
+      background: #ffffff;
+      color: #1f2937;
+    }
+
     .image-wrapper {
       overflow: hidden;
     }
+
     .image-wrapper img {
       transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     .group:hover .image-wrapper img {
       transform: scale(1.05);
     }
+
     .floating-card {
       transition: all 0.4s ease;
     }
+
     .group:hover .floating-card {
       transform: translateY(-8px);
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     }
+
     .stat-item {
       transition: all 0.3s ease;
     }
+
     .stat-item:hover {
       transform: translateY(-2px);
     }
@@ -55,35 +66,44 @@
   <!-- ============================================ -->
   <section id="tentang" class="py-20 lg:py-28 bg-white relative overflow-hidden">
     <!-- Background Decor -->
-    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-orange-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-green-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+    <div
+      class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-orange-50 rounded-full blur-3xl opacity-50 pointer-events-none">
+    </div>
+    <div
+      class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-green-50 rounded-full blur-3xl opacity-50 pointer-events-none">
+    </div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-      
+
       <!-- Company Story -->
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center group">
 
         <!-- Left: Text -->
         <div class="pr-0 lg:pr-8">
-          <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6 border border-orange-100">
+          <div
+            class="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6 border border-orange-100">
             Tentang Ukaisya
           </div>
-          
+
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight leading-[1.15] mb-6">
             Berdiri Sejak 1997. <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-400">Berakar di Kediri.</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-400">Berakar di
+              Kediri.</span>
           </h2>
-          
+
           <div class="space-y-5 text-gray-500 text-lg leading-relaxed">
             <p>
-              <span class="font-bold text-gray-800">PT Tiga Dewi Timur Raya</span> hadir sebagai salah satu penggerak industri pengolahan tebu di Indonesia. 
-              Berawal dari semangat untuk memanfaatkan hasil pertanian lokal, kami fokus menghasilkan 
-              <span class="font-bold text-orange-500">gula merah berkualitas premium</span> yang tetap terjaga cita rasanya hingga kini.
+              <span class="font-bold text-gray-800">PT Tiga Dewi Timur Raya</span> hadir sebagai salah satu penggerak
+              industri pengolahan tebu di Indonesia.
+              Berawal dari semangat untuk memanfaatkan hasil pertanian lokal, kami fokus menghasilkan
+              <span class="font-bold text-orange-500">gula merah berkualitas premium</span> yang tetap terjaga cita
+              rasanya hingga kini.
             </p>
             <p>
-              Berlokasi di <span class="font-bold text-gray-800">Desa Ngetrep, Kecamatan Mojo, Kabupaten Kediri, Jawa Timur</span>, 
-              kami mengolah nira tebu segar dari alam sekitar. Lebih dari sekadar produksi gula — kami hadir untuk membangun 
-              ekosistem ekonomi lokal yang berkelanjutan.
+              Berlokasi di <span class="font-bold text-gray-800">Desa Ngetrep, Kecamatan Mojo, Kabupaten Kediri, Jawa
+                Timur</span>,
+              kami mengolah nira tebu segar. Lebih dari sekadar produksi gula, kami hadir untuk membangun
+              ekonomi lokal yang berkelanjutan.
             </p>
           </div>
 
@@ -107,24 +127,26 @@
         <!-- Right: Image -->
         <div class="relative mt-8 lg:mt-0">
           <div class="image-wrapper rounded-3xl shadow-2xl bg-gray-100">
-            <img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?q=80&w=800&auto=format&fit=crop"
-                 alt="Perkebunan Tebu Kediri"
-                 class="w-full h-auto aspect-[4/3] object-cover" />
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMo4cLcoxk_gf64lNMC6jPdD1F-2bgyOPVdHHSxSATnkaY0u18oM7KT0R&s=10"
+              alt="Perkebunan Tebu Kediri" class="w-full h-auto aspect-[4/3] object-cover" />
           </div>
-          
+
           <!-- Floating Card (Glassmorphism) -->
-          <div class="floating-card absolute -bottom-8 -left-6 sm:bottom-10 sm:-left-10 bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-5 border border-white max-w-[240px]">
+          <div
+            class="floating-card absolute -bottom-8 -left-6 sm:bottom-10 sm:-left-10 bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-5 border border-white max-w-[240px]">
             <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-2xl flex-shrink-0">
+              <div
+                class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-2xl flex-shrink-0">
                 🌱
               </div>
               <div>
-                <p class="text-sm font-bold text-gray-900 leading-tight mb-1">Local Sourcing</p>
-                <p class="text-xs text-gray-500 leading-tight">Nira tebu segar dari petani lokal Kediri</p>
+                <p class="text-sm font-bold text-gray-900 leading-tight mb-1">Kualitas Gula Merah Batok</p>
+                <p class="text-xs text-gray-500 leading-tight">Diproses dari nira tebu pilihan</p>
               </div>
             </div>
           </div>
-          
+
         </div>
 
       </div>
@@ -133,4 +155,5 @@
   </section>
 
 </body>
+
 </html>
