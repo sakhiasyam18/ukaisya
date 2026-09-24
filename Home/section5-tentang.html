@@ -6,21 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ukaisya — Tentang Kami</title>
 
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { 'body': ['"Plus Jakarta Sans"', 'sans-serif'] },
+          fontFamily: {
+            'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            'ukaisya': {
+              orange: '#ff6b00',
+              green: '#22c55e',
+              dark: '#1f2937',
+              light: '#f9fafb',
+            }
+          }
         }
       }
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -30,31 +41,52 @@
 
     .image-wrapper {
       overflow: hidden;
+      position: relative;
     }
 
     .image-wrapper img {
-      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .group:hover .image-wrapper img {
       transform: scale(1.05);
     }
 
-    .floating-card {
-      transition: all 0.4s ease;
+    /* Elegant glassmorphism for floating card */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    .group:hover .floating-card {
+    .group:hover .glass-card {
       transform: translateY(-8px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 30px 60px -15px rgba(255, 107, 0, 0.15);
     }
 
     .stat-item {
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      background: linear-gradient(145deg, #ffffff, #f9fafb);
     }
 
     .stat-item:hover {
-      transform: translateY(-2px);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.05);
+      border-color: #ff6b0033;
+    }
+    
+    .accent-bg-glow {
+      position: absolute;
+      width: 40vw;
+      height: 40vw;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      z-index: 0;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -64,86 +96,91 @@
   <!-- ============================================ -->
   <!-- SECTION 5: TENTANG KAMI                       -->
   <!-- ============================================ -->
-  <section id="tentang" class="py-20 lg:py-28 bg-white relative overflow-hidden">
-    <!-- Background Decor -->
-    <div
-      class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-orange-50 rounded-full blur-3xl opacity-50 pointer-events-none">
-    </div>
-    <div
-      class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-green-50 rounded-full blur-3xl opacity-50 pointer-events-none">
-    </div>
+  <section id="tentang" class="py-24 lg:py-32 bg-white relative overflow-hidden">
+    
+    <!-- Sophisticated Background Glows -->
+    <div class="accent-bg-glow bg-orange-100/60 top-[-10%] right-[-5%]"></div>
+    <div class="accent-bg-glow bg-green-50/50 bottom-[-10%] left-[-5%]"></div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 
-      <!-- Company Story -->
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center group">
+      <div class="grid lg:grid-cols-12 gap-16 lg:gap-20 items-center group">
 
-        <!-- Left: Text -->
-        <div class="pr-0 lg:pr-8">
-          <div
-            class="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6 border border-orange-100">
+        <!-- Left: Text (Takes up 6 columns on large screens) -->
+        <div class="lg:col-span-6 pr-0 xl:pr-10">
+          
+          <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full mb-8 shadow-sm border border-orange-100/50">
+            <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span>
             Tentang Ukaisya
           </div>
 
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight leading-[1.15] mb-6">
-            Berdiri Sejak 1997. <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-400">Berakar di
-              Kediri.</span>
+          <h2 class="text-4xl md:text-5xl lg:text-[54px] font-extrabold text-gray-900 tracking-tight leading-[1.1] mb-8">
+            Berdiri Sejak 1997.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-400 relative">
+              Berakar di Kediri.
+              <!-- Underline swoosh -->
+              <svg class="absolute w-full h-3 -bottom-1 left-0 text-green-200/50" viewBox="0 0 200 12" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M2 10C50 2 150 2 198 10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+            </span>
           </h2>
 
-          <div class="space-y-5 text-gray-500 text-lg leading-relaxed">
+          <div class="space-y-6 text-gray-500 text-lg leading-[1.8]">
             <p>
-              <span class="font-bold text-gray-800">PT Tiga Dewi Timur Raya</span> hadir sebagai salah satu penggerak
+              <span class="font-bold text-gray-900">PT Tiga Dewi Timur Raya</span> hadir sebagai salah satu penggerak utama
               industri pengolahan tebu di Indonesia.
-              Berawal dari semangat untuk memanfaatkan hasil pertanian lokal, kami fokus menghasilkan
-              <span class="font-bold text-orange-500">gula merah berkualitas premium</span> yang tetap terjaga cita
-              rasanya hingga kini.
+              Berawal dari semangat memberdayakan hasil pertanian lokal, kami memfokuskan dedikasi pada pembuatan
+              <span class="font-bold text-orange-600">gula merah berkualitas premium</span> yang konsistensi rasa dan mutunya terjaga hingga hari ini.
             </p>
             <p>
-              Berlokasi di <span class="font-bold text-gray-800">Desa Ngetrep, Kecamatan Mojo, Kabupaten Kediri, Jawa
-                Timur</span>,
-              kami mengolah nira tebu segar. Lebih dari sekadar produksi gula, kami hadir untuk membangun
-              ekonomi lokal yang berkelanjutan.
+              Berpusat di <span class="font-medium text-gray-900">Desa Ngetrep, Kediri, Jawa Timur</span>,
+              kami mengolah nira tebu segar pilihan. Lebih dari sekadar produksi skala besar, kami membangun ekosistem agrikultur yang berkelanjutan bersama petani lokal.
             </p>
           </div>
 
-          <!-- Key Facts -->
-          <div class="grid grid-cols-3 gap-4 mt-10 pt-10 border-t border-gray-100">
-            <div class="stat-item bg-gray-50 p-4 rounded-2xl border border-gray-100/50">
-              <p class="text-3xl font-extrabold text-gray-900">1997</p>
-              <p class="text-xs text-gray-500 font-semibold mt-1 uppercase tracking-wider">Tahun Berdiri</p>
+          <!-- Key Facts (Elevated UI) -->
+          <div class="grid grid-cols-3 gap-5 mt-12 pt-12 border-t border-gray-100">
+            <div class="stat-item p-5 rounded-2xl border border-gray-100">
+              <p class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-1">1997</p>
+              <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Tahun Berdiri</p>
             </div>
-            <div class="stat-item bg-gray-50 p-4 rounded-2xl border border-gray-100/50">
-              <p class="text-3xl font-extrabold text-gray-900">27+</p>
-              <p class="text-xs text-gray-500 font-semibold mt-1 uppercase tracking-wider">Tahun Pengalaman</p>
+            <div class="stat-item p-5 rounded-2xl border border-gray-100">
+              <p class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-1">27<span class="text-orange-500"></span></p>
+              <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Tahun Pengalaman</p>
             </div>
-            <div class="stat-item bg-orange-50 p-4 rounded-2xl border border-orange-100/50">
-              <p class="text-3xl font-extrabold text-orange-600">4 Ton</p>
-              <p class="text-xs text-orange-600/70 font-semibold mt-1 uppercase tracking-wider">Kapasitas / Hari</p>
+            <div class="stat-item bg-gradient-to-br from-orange-50 to-white p-5 rounded-2xl border border-orange-100">
+              <p class="text-3xl lg:text-4xl font-extrabold text-orange-600 mb-1">4<span class="text-xl">Ton</span></p>
+              <p class="text-[10px] text-orange-700/70 font-bold uppercase tracking-widest">Kapasitas Harian</p>
             </div>
           </div>
         </div>
 
-        <!-- Right: Image -->
-        <div class="relative mt-8 lg:mt-0">
-          <div class="image-wrapper rounded-3xl shadow-2xl bg-gray-100">
+        <!-- Right: Image Presentation (Takes up 6 columns on large screens) -->
+        <div class="lg:col-span-6 relative mt-12 lg:mt-0">
+          
+          <!-- Decorative abstract shape behind image -->
+          <div class="absolute -inset-4 bg-gradient-to-tr from-orange-100 to-green-50 rounded-[2.5rem] transform rotate-3 scale-95 opacity-70 transition-transform duration-700 group-hover:rotate-6"></div>
+          
+          <!-- Main Image -->
+          <div class="image-wrapper rounded-3xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] bg-gray-100 relative z-10 border-[6px] border-white">
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMo4cLcoxk_gf64lNMC6jPdD1F-2bgyOPVdHHSxSATnkaY0u18oM7KT0R&s=10"
-              alt="Perkebunan Tebu Kediri" class="w-full h-auto aspect-[4/3] object-cover" />
+              alt="Perkebunan Tebu Kediri" 
+              class="w-full h-auto aspect-[4/3] object-cover" 
+            />
+            
+            <!-- Subtle gradient overlay to make it look premium -->
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent"></div>
           </div>
 
-          <!-- Floating Card (Glassmorphism) -->
-          <div
-            class="floating-card absolute -bottom-8 -left-6 sm:bottom-10 sm:-left-10 bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-5 border border-white max-w-[240px]">
-            <div class="flex items-center gap-4">
-              <div
-                class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-2xl flex-shrink-0">
-                🌱
-              </div>
-              <div>
-                <p class="text-sm font-bold text-gray-900 leading-tight mb-1">Kualitas Gula Merah Batok</p>
-                <p class="text-xs text-gray-500 leading-tight">Diproses dari nira tebu pilihan</p>
-              </div>
+          <!-- Refined Floating Card -->
+          <div class="glass-card absolute -bottom-8 -left-4 sm:bottom-8 sm:-left-12 p-5 rounded-2xl max-w-[260px] z-20 flex items-center gap-4">
+            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-green-500 shadow-sm border border-green-50 flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[14px] font-bold text-gray-900 leading-snug mb-0.5">Kualitas Terjamin</p>
+              <p class="text-[11px] font-medium text-gray-500 leading-snug">Diproses dari nira tebu 100% asli</p>
             </div>
           </div>
 

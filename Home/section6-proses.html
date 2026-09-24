@@ -1,131 +1,178 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ukaisya — Transparansi Proses Produksi</title>
 
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { 'body': ['"Plus Jakarta Sans"', 'sans-serif'] },
+          fontFamily: {
+            'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            'ukaisya': {
+              orange: '#ff6b00',
+              yellow: '#eab308',
+            }
+          }
         }
       }
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    body { background: #f9fafb; color: #1f2937; }
-    .step-card {
-      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    body { background: transparent; color: #1f2937; }
+    
+    /* Clean, transparent background (no aura) */
+    .bg-mesh {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
     }
-    .step-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.08);
+
+    .process-card {
+      background: #ffffff;
+      border: 1px solid #f3f4f6;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .process-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -15px rgba(255, 107, 0, 0.1);
       border-color: #ffedd5;
     }
-    .step-number {
-      background: linear-gradient(135deg, #ff8a00, #ff6b00);
-      transition: transform 0.3s ease;
+    
+    .icon-box {
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .step-card:hover .step-number {
-      transform: scale(1.1);
+    
+    .process-card:hover .icon-box {
+      transform: scale(1.1) rotate(5deg);
+      background: #fff7ed;
+      color: #ea580c;
+      border-color: #ffedd5;
     }
-    .tech-card {
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .tech-card:hover {
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
-      transform: translateY(-4px);
+
+    /* Decorative Process Line (Desktop only) */
+    @media (min-width: 1024px) {
+      .process-line {
+        position: absolute;
+        top: 48px;
+        left: 80px;
+        right: 80px;
+        height: 1px;
+        background-image: linear-gradient(to right, #e5e7eb 50%, transparent 50%);
+        background-size: 16px 1px;
+        z-index: 5;
+      }
     }
   </style>
 </head>
 
-<body class="font-body antialiased">
+<body class="font-body antialiased relative overflow-hidden">
 
   <!-- ============================================ -->
   <!-- SECTION 6: TRANSPARANSI PROSES PRODUKSI      -->
   <!-- ============================================ -->
-  <section id="proses" class="py-20 lg:py-28 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section id="proses" class="py-24 lg:py-32 bg-transparent relative overflow-hidden">
+    
+    <!-- Clean Decorative Background -->
+    <div class="bg-mesh"></div>
+    <div class="absolute inset-0 opacity-[0.015]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E'); mix-blend-mode: overlay;"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <p class="text-sm font-bold uppercase tracking-widest text-orange-500 mb-3">Proses Produksi</p>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
-          Dari Nira Tebu Segar Hingga <br class="hidden sm:block">Gula Merah Berkualitas
+      <div class="text-center max-w-3xl mx-auto mb-20 relative">
+        <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full mb-6 shadow-sm border border-orange-100 cursor-default">
+          <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span>
+          Alur Produksi
+        </div>
+        <h2 class="text-4xl md:text-5xl lg:text-[52px] font-extrabold text-gray-900 tracking-tight leading-[1.15] mb-5">
+          Dari Nira Segar Hingga <br class="hidden sm:block">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">Gula Merah Premium</span>
         </h2>
-        <p class="mt-5 text-base sm:text-lg text-gray-500 leading-relaxed">
-          8 tahap produksi
+        <p class="text-lg text-gray-500 leading-relaxed font-medium">
+          Kualitas tinggi dicapai melalui 8 tahapan standar pabrik modern yang ketat dan transparan.
         </p>
       </div>
 
-      <!-- 8-Step Process Timeline -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <!-- 8-Step Process Grid -->
+      <div class="relative">
+        <div class="process-line hidden lg:block"></div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10">
+          
+          <!-- Step 1 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">1</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Penerimaan Nira</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Nira segar diterima langsung dari penggilingan tebu petani mitra pilihan.</p>
+          </div>
 
-        <!-- Step 1 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">1</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Penerimaan Nira</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Nira segar diterima langsung dari penggilingan tebu petani mitra.</p>
+          <!-- Step 2 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">2</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Penyaringan</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Nira disaring secara menyeluruh untuk membuang partikel kasar yang tersisa.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">3</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Pemurnian</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Tahap pemurnian khusus untuk menghasilkan nira yang jernih dan bersih.</p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">4</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Pemasakan</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Dimasak dalam wajan SS304 2.300L dengan pengadukan terkontrol.</p>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm mt-0 lg:mt-6">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">5</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Pencetakan</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Produk dicetak presisi: gula awur, kristal premium, atau bathok curah.</p>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm mt-0 lg:mt-6">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">6</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Pendinginan</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Produk didinginkan dalam lingkungan terkontrol hingga suhu stabil maksimal.</p>
+          </div>
+
+          <!-- Step 7 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm mt-0 lg:mt-6">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">7</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Kemasan Primer</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Dikemas kedap udara agar kelembaban lingkungan tidak merusak produk.</p>
+          </div>
+
+          <!-- Step 8 -->
+          <div class="process-card rounded-[1.5rem] p-7 shadow-sm mt-0 lg:mt-6">
+            <div class="icon-box w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 font-extrabold text-lg flex items-center justify-center mb-6 border border-gray-100">8</div>
+            <h4 class="text-[17px] font-bold text-gray-900 mb-2.5">Kemasan & Label</h4>
+            <p class="text-[13.5px] text-gray-500 leading-relaxed font-medium">Pengemasan sekunder komprehensif, siap untuk distribusi massal ke klien.</p>
+          </div>
+
         </div>
-
-        <!-- Step 2 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">2</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Penyaringan</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Nira disaring secara menyeluruh untuk membuang partikel kasar.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">3</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Pemurnian</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Tahap pemurnian khusus untuk menghasilkan nira bersih siap masak.</p>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">4</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Pemasakan</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Dimasak dalam wajan SS304 2.300L dengan pengadukan mekanis terkontrol.</p>
-        </div>
-
-        <!-- Step 5 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">5</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Pencetakan</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Produk dicetak sesuai bentuk akhir: awur, kristal, atau bathok curah.</p>
-        </div>
-
-        <!-- Step 6 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">6</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Pendinginan</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Produk didinginkan dalam lingkungan terkontrol hingga suhu stabil.</p>
-        </div>
-
-        <!-- Step 7 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">7</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Kemasan Primer</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Kemasan primer ditutup kedap udara untuk menjaga kualitas produk.</p>
-        </div>
-
-        <!-- Step 8 -->
-        <div class="step-card bg-white rounded-2xl border border-gray-100 p-6 relative overflow-hidden group">
-          <div class="step-number w-10 h-10 rounded-full text-white font-bold text-sm flex items-center justify-center mb-5 shadow-md">8</div>
-          <h4 class="text-base font-bold text-gray-900 mb-2">Kemasan & Label</h4>
-          <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Kemasan sekunder dan pelabelan lengkap, siap distribusi massal.</p>
-        </div>
-
       </div>
 
     </div>

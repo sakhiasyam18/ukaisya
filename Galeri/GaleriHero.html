@@ -26,71 +26,123 @@
 
     <style>
         body {
-            background: #ffffff;
+            background: #fafafa;
             color: #1f2937;
         }
 
-        /* Ambient breathe */
+        /* ===== ANIMATED BACKGROUND ===== */
         @keyframes breathe {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-
-            50% {
-                transform: scale(1.15);
-                opacity: 0.8;
-            }
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.2); opacity: 0.7; }
         }
 
-        /* Noise overlay */
-        .noise-overlay {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.025;
-            pointer-events: none;
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-12px) rotate(1deg); }
+            66% { transform: translateY(6px) rotate(-1deg); }
         }
 
-        /* Card neumorphism */
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid Background Pattern */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+
+        /* ===== CARD STYLES ===== */
         .catalog-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.05), -4px -4px 12px rgba(255, 255, 255, 0.7);
-            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow:
+                0 4px 16px rgba(0, 0, 0, 0.04),
+                0 1px 3px rgba(0, 0, 0, 0.02),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0;
+            transform: translateY(40px) scale(0.97);
+        }
+
+        .catalog-card.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .catalog-card:hover {
-            transform: scale(1.03);
-            box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.08), -6px -6px 20px rgba(255, 255, 255, 0.9);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(255, 107, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border-color: rgba(255, 107, 0, 0.15);
         }
 
         .catalog-card:active {
-            transform: scale(0.97);
+            transform: scale(0.98);
         }
 
         @media (min-width: 1024px) {
             .catalog-card:active {
-                transform: scale(1.03);
+                transform: translateY(-6px) scale(1.02);
             }
         }
 
-        /* Image zoom on hover */
+        /* Image zoom */
         .catalog-card img {
-            transition: transform 0.7s ease;
+            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .catalog-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
-        /* Hover overlay (desktop) */
+        /* Card shimmer effect on hover */
+        .card-shimmer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                105deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 60%
+            );
+            transform: translateX(-100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .catalog-card:hover .card-shimmer {
+            animation: shimmer 0.8s ease-out;
+        }
+
+        /* Desktop overlay */
         .card-overlay-desktop {
             opacity: 0;
-            transform: translateY(8px);
-            transition: all 0.4s ease;
+            transform: translateY(12px);
+            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .catalog-card:hover .card-overlay-desktop {
@@ -107,78 +159,170 @@
             opacity: 1;
         }
 
-        /* Lightbox */
-        .lightbox-backdrop {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        /* ===== BADGE SHINE ===== */
+        .badge-shine {
+            position: relative;
+            overflow: hidden;
         }
+        .badge-shine::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox-backdrop {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .lightbox-nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .lightbox-nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ===== SECTION HEADER ===== */
+        .gradient-text {
+            background: linear-gradient(135deg, #1f2937 0%, #92400e 50%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-line {
+            background: linear-gradient(90deg, transparent 0%, #f97316 20%, #f97316 80%, transparent 100%);
+        }
+
+        /* ===== IMAGE COUNTER ===== */
+        .image-counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.15);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
     </style>
 </head>
 
 <body class="font-body antialiased">
 
     <!-- ============================================ -->
-    <!-- GALERI PRODUK UKAISYA                         -->
+    <!-- GALERI PRODUK UKAISYA — FINAL VERSION        -->
     <!-- ============================================ -->
     <section id="galeri" class="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
 
-        <!-- Ambient background -->
-        <div class="absolute inset-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-white via-orange-50/30 to-amber-50/20"></div>
-            <div class="absolute bottom-[10%] left-[20%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(closest-side,rgba(255,107,0,0.06),transparent_70%)]"
-                style="animation: breathe 10s ease-in-out infinite 2s"></div>
-            <div class="absolute top-[15%] right-[10%] w-[400px] h-[400px] rounded-full bg-[radial-gradient(closest-side,rgba(34,197,94,0.05),transparent_70%)]"
-                style="animation: breathe 12s ease-in-out infinite"></div>
+        <!-- ===== PREMIUM BACKGROUND ===== -->
+        <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+            <!-- Base color -->
+            <div class="absolute inset-0 bg-gradient-to-b from-[#fefefe] via-[#faf8f5] to-[#f5f3ef]"></div>
+
+            <!-- Grid Pattern -->
+            <div class="absolute inset-0 bg-grid-pattern"></div>
+
+            <!-- Dot accent pattern -->
+            <div class="absolute inset-0 opacity-[0.25]"
+                style="background-image: radial-gradient(circle, #d4d4d8 0.8px, transparent 0.8px); background-size: 32px 32px;"></div>
+
+            <!-- Aura Orb 1 — Orange warm -->
+            <div class="absolute -top-[15%] -left-[10%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full"
+                style="background: radial-gradient(circle, rgba(255,107,0,0.06) 0%, rgba(255,107,0,0.02) 40%, transparent 70%); animation: breathe 14s ease-in-out infinite, float 20s ease-in-out infinite;"></div>
+
+            <!-- Aura Orb 2 — Emerald -->
+            <div class="absolute top-[40%] -right-[15%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full"
+                style="background: radial-gradient(circle, rgba(16,185,129,0.04) 0%, rgba(16,185,129,0.01) 40%, transparent 70%); animation: breathe 18s ease-in-out infinite 3s, float 25s ease-in-out infinite reverse;"></div>
+
+            <!-- Aura Orb 3 — Amber center -->
+            <div class="absolute top-[70%] left-[20%] w-[45vw] h-[45vw] max-w-[500px] max-h-[500px] rounded-full"
+                style="background: radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 60%); animation: breathe 16s ease-in-out infinite 6s, float 22s ease-in-out infinite;"></div>
+
+            <!-- Edge vignette -->
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(250,250,250,0.7)_100%)]"></div>
         </div>
-        <div class="noise-overlay absolute inset-0"></div>
 
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
 
-            <!-- Section Header -->
-            <div class="text-center mb-10 sm:mb-14">
-                <p class="text-xs sm:text-sm font-semibold text-orange-500 uppercase tracking-widest mb-2 sm:mb-3">
-                    Kegiatan Produksi Gula Merah
-                </p>
-                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight">
-                    Lihat Kegiatan Produksi Gula Merah
+            <!-- ===== SECTION HEADER ===== -->
+            <div class="text-center mb-12 sm:mb-16">
+                <!-- Pill badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 mb-5 sm:mb-6"
+                    style="animation: slideUp 0.6s ease-out both;">
+                    <span class="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse"></span>
+                    <span class="text-[10px] sm:text-xs font-semibold text-orange-600 uppercase tracking-widest">
+                        Kegiatan Produksi Gula Merah
+                    </span>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight gradient-text"
+                    style="animation: slideUp 0.6s ease-out 0.1s both;">
+                    Lihat Kegiatan<br class="sm:hidden"> Produksi Kami
                 </h2>
-                <p class="mt-3 sm:mt-4 text-gray-500 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-                    Kegiatan kami — mulai dari proses produksi gula merah hingga distribusi gula merah.
+
+                <div class="flex items-center justify-center gap-3 mt-4 sm:mt-5 mb-4 sm:mb-5"
+                    style="animation: slideUp 0.6s ease-out 0.2s both;">
+                    <div class="h-px w-12 sm:w-16 header-line opacity-60"></div>
+                    <svg class="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 4.343a.75.75 0 010 1.06l-1.061 1.061a.75.75 0 01-1.06-1.06l1.06-1.061a.75.75 0 011.061 0zM6.464 13.535a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM15.657 15.657a.75.75 0 01-1.06 0l-1.061-1.061a.75.75 0 111.06-1.06l1.061 1.06a.75.75 0 010 1.061zM6.464 6.465a.75.75 0 01-1.06 0L4.343 5.404a.75.75 0 011.06-1.06l1.061 1.06a.75.75 0 010 1.061z"/>
+                    </svg>
+                    <div class="h-px w-12 sm:w-16 header-line opacity-60"></div>
+                </div>
+
+                <p class="text-gray-500 max-w-xl mx-auto text-sm sm:text-base leading-relaxed"
+                    style="animation: slideUp 0.6s ease-out 0.3s both;">
+                    Kegiatan kami — mulai dari proses produksi hingga distribusi gula merah tebu.
                 </p>
-                <p class="mt-1 text-[10px] sm:text-xs text-gray-400">Klik gambar untuk memperbesar</p>
+
+                <p class="mt-2 text-[10px] sm:text-xs text-gray-400 flex items-center justify-center gap-1.5"
+                    style="animation: slideUp 0.6s ease-out 0.4s both;">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    Klik gambar untuk memperbesar
+                </p>
             </div>
 
-            <!-- ===== Asymmetric Bento Grid ===== -->
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3 lg:gap-5">
+            <!-- ===== BENTO GRID ===== -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3 lg:gap-4">
 
-                <!-- Card 1: Mesin Pengolahan Utama — Wide (spans 2 cols on mobile, row-span-2 on desktop) -->
+                <!-- Card 1: Mesin Pengolahan Utama — Wide -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[16/10] lg:row-span-2 lg:aspect-auto lg:h-full"
                     onclick="openLightbox(0)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/DHhPr8DL/f-Whats-App-Image-2026-09-03-at-20-45-31.jpg"
-                        alt="Mesin pengolahan gula merah utama pabrik Ukaisya" class="absolute inset-0 w-full h-full object-cover" />
-                    <div
-                        class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent">
-                    </div>
-                    <!-- Category badge -->
+                        alt="Mesin pengolahan gula merah utama pabrik Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span
-                            class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-orange-500/10 text-orange-600 border-orange-200/50">
-                            Mesin Utama
-                        </span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-orange-500/10 text-orange-600 border-orange-200/50">Mesin Utama</span>
                     </div>
-                    <!-- Mobile: compact name -->
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Mesin Pengolahan Utama</h3>
                         </div>
                     </div>
-                    <!-- Desktop: hover overlay -->
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div
-                            class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Mesin Pengolahan Utama</h3>
-                            <p class="text-[11px] text-gray-400">Drum mixer, wajan stainless steel, dan panel kontrol di lantai pabrik</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Mesin Pengolahan Utama</h3>
+                            <p class="text-[11px] text-gray-500">Drum mixer, wajan stainless steel, dan panel kontrol di lantai pabrik</p>
                         </div>
                     </div>
                 </div>
@@ -186,22 +330,23 @@
                 <!-- Card 2: Fabrikasi Rangka Baja -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:aspect-[4/3]"
                     onclick="openLightbox(1)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/B25xYqV9/Whats-App-Image-2026-09-03-at-20-45-25.jpg"
-                        alt="Proses fabrikasi dan pengiriman rangka baja pabrik Ukaisya" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Proses fabrikasi dan pengiriman rangka baja pabrik Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-amber-500/10 text-amber-700 border-amber-200/50">Konstruksi</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-amber-500/10 text-amber-700 border-amber-200/50">Konstruksi</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Fabrikasi Rangka Baja</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Fabrikasi Rangka Baja</h3>
-                            <p class="text-[11px] text-gray-400">Pengelasan dan pengiriman struktur baja untuk pabrik</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Fabrikasi Rangka Baja</h3>
+                            <p class="text-[11px] text-gray-500">Pengelasan dan pengiriman struktur baja untuk pabrik</p>
                         </div>
                     </div>
                 </div>
@@ -209,22 +354,23 @@
                 <!-- Card 3: Oven Pengering -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:aspect-[4/3]"
                     onclick="openLightbox(2)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-yellow-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/212G7565/Whats-App-Image-2026-09-03-at-20-45-26-1.jpg"
-                        alt="Oven pengering stainless steel multi-rak pabrik Ukaisya" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Oven pengering stainless steel multi-rak pabrik Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-yellow-500/10 text-yellow-700 border-yellow-200/50">Pengeringan</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-yellow-500/10 text-yellow-700 border-yellow-200/50">Pengeringan</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Oven Pengering SS</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Oven Pengering Stainless Steel</h3>
-                            <p class="text-[11px] text-gray-400">Kabinet pengering multi-rak untuk proses pengeringan gula</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Oven Pengering Stainless Steel</h3>
+                            <p class="text-[11px] text-gray-500">Kabinet pengering multi-rak untuk proses pengeringan gula</p>
                         </div>
                     </div>
                 </div>
@@ -232,22 +378,23 @@
                 <!-- Card 4: Tim Produksi -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-square lg:row-span-2 lg:aspect-auto lg:h-full"
                     onclick="openLightbox(3)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-stone-100 via-stone-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/ZRrcDGMv/Whats-App-Image-2026-09-03-at-20-45-26.jpg"
-                        alt="Tim produksi pabrik gula merah Ukaisya Kediri" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Tim produksi pabrik gula merah Ukaisya Kediri" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-stone-500/10 text-stone-700 border-stone-300/50">Tim Kami</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-stone-500/10 text-stone-700 border-stone-300/50">Tim Kami</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Tim Produksi Ukaisya</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Tim Produksi Ukaisya</h3>
-                            <p class="text-[11px] text-gray-400">Tim operasional pabrik siap melayani kebutuhan produksi Anda</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Tim Produksi Ukaisya</h3>
+                            <p class="text-[11px] text-gray-500">Tim operasional pabrik siap melayani kebutuhan produksi Anda</p>
                         </div>
                     </div>
                 </div>
@@ -255,22 +402,23 @@
                 <!-- Card 5: Logistik Bahan Baku — Wide on desktop -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-square lg:col-span-2 lg:aspect-[16/9]"
                     onclick="openLightbox(4)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-green-100 via-green-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/QvPdCdRr/Whats-App-Image-2026-09-03-at-20-45-27-1.jpg"
-                        alt="Pengangkutan material baja ke lokasi pabrik Ukaisya Kediri" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Pengangkutan material baja ke lokasi pabrik Ukaisya Kediri" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-green-500/10 text-green-600 border-green-200/50">Logistik</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-green-500/10 text-green-600 border-green-200/50">Logistik</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Logistik Bahan Baku</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Logistik Bahan Baku</h3>
-                            <p class="text-[11px] text-gray-400">Pengangkutan material struktur baja ke lokasi pabrik Kediri</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Logistik Bahan Baku</h3>
+                            <p class="text-[11px] text-gray-500">Pengangkutan material struktur baja ke lokasi pabrik Kediri</p>
                         </div>
                     </div>
                 </div>
@@ -278,22 +426,23 @@
                 <!-- Card 6: Kolaborasi UM -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[21/9] lg:col-span-1 lg:aspect-[4/3]"
                     onclick="openLightbox(5)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-rose-100 via-rose-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/Dg8SR7bQ/Whats-App-Image-2026-09-03-at-20-45-27.jpg"
-                        alt="Kolaborasi Ukaisya dengan Universitas Negeri Malang" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Kolaborasi Ukaisya dengan Universitas Negeri Malang" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-rose-500/10 text-rose-600 border-rose-200/50">Kemitraan</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-rose-500/10 text-rose-600 border-rose-200/50">Kemitraan</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Kolaborasi UM Malang</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Kolaborasi Universitas Negeri Malang</h3>
-                            <p class="text-[11px] text-gray-400">Program mekanisasi agroindustri gula merah bersama UM</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Kolaborasi Universitas Negeri Malang</h3>
+                            <p class="text-[11px] text-gray-500">Program mekanisasi agroindustri gula merah bersama UM</p>
                         </div>
                     </div>
                 </div>
@@ -301,22 +450,23 @@
                 <!-- Card 7: Lini Produksi — Wide on desktop -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:col-span-2 lg:aspect-[16/9]"
                     onclick="openLightbox(6)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-sky-100 via-sky-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/Fb3HSHQr/Whats-App-Image-2026-09-03-at-20-45-28.jpg"
-                        alt="Lini produksi lengkap pabrik Ukaisya Kediri" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Lini produksi lengkap pabrik Ukaisya Kediri" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-sky-500/10 text-sky-600 border-sky-200/50">Fasilitas</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-sky-500/10 text-sky-600 border-sky-200/50">Fasilitas</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Lini Produksi Lengkap</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Lini Produksi Lengkap</h3>
-                            <p class="text-[11px] text-gray-400">Wajan pendingin, mesin penggiling, dan drum mixer dalam satu lini</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Lini Produksi Lengkap</h3>
+                            <p class="text-[11px] text-gray-500">Wajan pendingin, mesin penggiling, dan drum mixer dalam satu lini</p>
                         </div>
                     </div>
                 </div>
@@ -324,45 +474,47 @@
                 <!-- Card 8: Komponen Mesin Giling -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:aspect-[4/3]"
                     onclick="openLightbox(7)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-violet-100 via-violet-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/8ndFjxPf/Whats-App-Image-2026-09-03-at-20-45-29-1.jpg"
-                        alt="Bearing block dan roda gigi mesin penggiling tebu Ukaisya" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Bearing block dan roda gigi mesin penggiling tebu Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-violet-500/10 text-violet-600 border-violet-200/50">Mesin</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-violet-500/10 text-violet-600 border-violet-200/50">Mesin</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Komponen Mesin Giling</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Komponen Mesin Giling</h3>
-                            <p class="text-[11px] text-gray-400">Bearing block dan roda gigi besi cor untuk mesin penggiling tebu</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Komponen Mesin Giling</h3>
+                            <p class="text-[11px] text-gray-500">Bearing block dan roda gigi besi cor untuk mesin penggiling tebu</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 9: Wide on mobile, normal on desktop -->
+                <!-- Card 9: Wide on mobile -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[16/10] lg:col-span-2 lg:aspect-[16/9]"
                     onclick="openLightbox(8)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-teal-100 via-teal-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/zV3bMt9y/Whats-App-Image-2026-09-03-at-20-45-30.jpg"
-                        alt="Produk Ukaisya 9" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Proses pengolahan tebu Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-teal-500/10 text-teal-600 border-teal-200/50">Produksi</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-teal-500/10 text-teal-600 border-teal-200/50">Produksi</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Proses Pengolahan Tebu</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Proses Pengolahan Tebu</h3>
-                            <p class="text-[11px] text-gray-400">Dokumentasi langsung dari pabrik Ukaisya di Kediri</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Proses Pengolahan Tebu</h3>
+                            <p class="text-[11px] text-gray-500">Dokumentasi langsung dari pabrik Ukaisya di Kediri</p>
                         </div>
                     </div>
                 </div>
@@ -370,45 +522,47 @@
                 <!-- Card 10: Portrait -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:aspect-[4/3]"
                     onclick="openLightbox(9)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-cyan-100 via-cyan-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/Fq3RMmC0/Whats-App-Image-2026-09-22-at-13-18-45.jpg"
-                        alt="Produk Ukaisya 10" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Bahan baku pilihan Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-cyan-500/10 text-cyan-600 border-cyan-200/50">Bahan Baku</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-cyan-500/10 text-cyan-600 border-cyan-200/50">Bahan Baku</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Bahan Baku Pilihan</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Bahan Baku Pilihan</h3>
-                            <p class="text-[11px] text-gray-400">Tebu segar dari petani mitra Desa Ngetrep</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Bahan Baku Pilihan</h3>
+                            <p class="text-[11px] text-gray-500">Tebu segar dari petani mitra Desa Ngetrep</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 11: Portrait -->
+                <!-- Card 11: Portrait row-span-2 -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:row-span-2 lg:aspect-auto lg:h-full"
                     onclick="openLightbox(10)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-emerald-100 via-emerald-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/fzf3zNR0/Whats-App-Image-2026-09-22-at-13-19-46.jpg"
-                        alt="Produk Ukaisya 11" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Hasil produksi Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-emerald-500/10 text-emerald-600 border-emerald-200/50">Hasil Produksi</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-emerald-500/10 text-emerald-600 border-emerald-200/50">Hasil Produksi</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Hasil Produksi</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Hasil Produksi</h3>
-                            <p class="text-[11px] text-gray-400">Gula merah tebu siap kemas dan distribusi</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Hasil Produksi</h3>
+                            <p class="text-[11px] text-gray-500">Gula merah tebu siap kemas dan distribusi</p>
                         </div>
                     </div>
                 </div>
@@ -416,22 +570,23 @@
                 <!-- Card 12: Wide on mobile -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[21/9] lg:col-span-2 lg:aspect-[16/9]"
                     onclick="openLightbox(11)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-lime-100 via-lime-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/35X4dJwf/Whats-App-Image-2026-09-22-at-13-20-32.jpg"
-                        alt="Produk Ukaisya 12" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Area pabrik Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-lime-500/10 text-lime-700 border-lime-200/50">Pabrik</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-lime-500/10 text-lime-700 border-lime-200/50">Pabrik</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Area Pabrik Ukaisya</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Area Pabrik Ukaisya</h3>
-                            <p class="text-[11px] text-gray-400">Fasilitas produksi di Desa Ngetrep, Mojo, Kediri</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Area Pabrik Ukaisya</h3>
+                            <p class="text-[11px] text-gray-500">Fasilitas produksi di Desa Ngetrep, Mojo, Kediri</p>
                         </div>
                     </div>
                 </div>
@@ -439,22 +594,23 @@
                 <!-- Card 13: Square -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-square lg:aspect-[4/3]"
                     onclick="openLightbox(12)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/60d7pFNL/Whats-App-Image-2026-09-22-at-13-20-34.jpg"
-                        alt="Produk Ukaisya 13" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Pemasakan nira tebu" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-amber-500/10 text-amber-700 border-amber-200/50">Pemasakan</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-amber-500/10 text-amber-700 border-amber-200/50">Pemasakan</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Pemasakan Nira Tebu</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Pemasakan Nira Tebu</h3>
-                            <p class="text-[11px] text-gray-400">Proses pemasakan menggunakan wajan SS304 food-grade</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Pemasakan Nira Tebu</h3>
+                            <p class="text-[11px] text-gray-500">Proses pemasakan menggunakan wajan SS304 food-grade</p>
                         </div>
                     </div>
                 </div>
@@ -462,45 +618,47 @@
                 <!-- Card 14: Square -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-square lg:aspect-[4/3]"
                     onclick="openLightbox(13)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/gH5p03p/Whats-App-Image-2026-09-22-at-13-20-37.jpg"
-                        alt="Produk Ukaisya 14" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Detail gula merah tebu" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-orange-500/10 text-orange-600 border-orange-200/50">Detail Produk</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-orange-500/10 text-orange-600 border-orange-200/50">Detail Produk</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Detail Gula Merah</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Detail Gula Merah</h3>
-                            <p class="text-[11px] text-gray-400">Warna dan tekstur khas gula merah tebu Ukaisya</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Detail Gula Merah</h3>
+                            <p class="text-[11px] text-gray-500">Warna dan tekstur khas gula merah tebu Ukaisya</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 15: Portrait, row-span-2 on desktop -->
+                <!-- Card 15: Portrait, row-span-2 -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:row-span-2 lg:aspect-auto lg:h-full"
                     onclick="openLightbox(14)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-rose-100 via-rose-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/4g27LhXy/Whats-App-Image-2026-09-22-at-13-20-41.jpg"
-                        alt="Produk Ukaisya 15" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Pencetakan gula bathok" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-rose-500/10 text-rose-600 border-rose-200/50">Pencetakan</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-rose-500/10 text-rose-600 border-rose-200/50">Pencetakan</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Pencetakan Gula Bathok</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Pencetakan Gula Bathok</h3>
-                            <p class="text-[11px] text-gray-400">Proses cetak tradisional untuk bentuk bathok</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Pencetakan Gula Bathok</h3>
+                            <p class="text-[11px] text-gray-500">Proses cetak tradisional untuk bentuk bathok</p>
                         </div>
                     </div>
                 </div>
@@ -508,22 +666,23 @@
                 <!-- Card 16: Wide 2-col -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[16/10] lg:col-span-2 lg:aspect-[16/9]"
                     onclick="openLightbox(15)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-indigo-100 via-indigo-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/VYv1tRXW/Whats-App-Image-2026-09-22-at-13-20-59.jpg"
-                        alt="Produk Ukaisya 16" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Proses pengemasan" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-indigo-500/10 text-indigo-600 border-indigo-200/50">Pengemasan</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-indigo-500/10 text-indigo-600 border-indigo-200/50">Pengemasan</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Proses Pengemasan</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Proses Pengemasan</h3>
-                            <p class="text-[11px] text-gray-400">Produk dikemas rapi sebelum distribusi</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Proses Pengemasan</h3>
+                            <p class="text-[11px] text-gray-500">Produk dikemas rapi sebelum distribusi</p>
                         </div>
                     </div>
                 </div>
@@ -531,22 +690,23 @@
                 <!-- Card 17: Portrait -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:aspect-[4/3]"
                     onclick="openLightbox(16)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-fuchsia-100 via-fuchsia-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/DHhPr8DL/f-Whats-App-Image-2026-09-03-at-20-45-31.jpg"
-                        alt="Produk Ukaisya 17" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Gudang penyimpanan" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-fuchsia-500/10 text-fuchsia-600 border-fuchsia-200/50">Gudang</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-fuchsia-500/10 text-fuchsia-600 border-fuchsia-200/50">Gudang</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Gudang Penyimpanan</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Gudang Penyimpanan</h3>
-                            <p class="text-[11px] text-gray-400">Stok produk siap kirim ke seluruh Indonesia</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Gudang Penyimpanan</h3>
+                            <p class="text-[11px] text-gray-500">Stok produk siap kirim ke seluruh Indonesia</p>
                         </div>
                     </div>
                 </div>
@@ -554,22 +714,23 @@
                 <!-- Card 18: Square -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-square lg:aspect-[4/3]"
                     onclick="openLightbox(17)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-yellow-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/SkyhYL8/Whats-App-Image-2026-09-22-at-13-21-08.jpg"
-                        alt="Produk Ukaisya 18" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Kontrol kualitas" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-yellow-500/10 text-yellow-700 border-yellow-200/50">Kualitas</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-yellow-500/10 text-yellow-700 border-yellow-200/50">Kualitas</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Kontrol Kualitas</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Kontrol Kualitas</h3>
-                            <p class="text-[11px] text-gray-400">Seleksi ketat untuk menjaga mutu produk</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Kontrol Kualitas</h3>
+                            <p class="text-[11px] text-gray-500">Seleksi ketat untuk menjaga mutu produk</p>
                         </div>
                     </div>
                 </div>
@@ -577,22 +738,23 @@
                 <!-- Card 19: Wide 2-col -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-2 aspect-[16/10] lg:col-span-2 lg:aspect-[16/9]"
                     onclick="openLightbox(18)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-green-100 via-green-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/S4NtQrm5/Whats-App-Image-2026-09-22-at-13-21-12.jpg"
-                        alt="Produk Ukaisya 19" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Siap distribusi" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-green-500/10 text-green-600 border-green-200/50">Distribusi</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-green-500/10 text-green-600 border-green-200/50">Distribusi</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Siap Distribusi</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Siap Distribusi</h3>
-                            <p class="text-[11px] text-gray-400">Produk dikemas dan siap dikirim ke pelanggan</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Siap Distribusi</h3>
+                            <p class="text-[11px] text-gray-500">Produk dikemas dan siap dikirim ke pelanggan</p>
                         </div>
                     </div>
                 </div>
@@ -600,39 +762,52 @@
                 <!-- Card 20: Portrait -->
                 <div class="catalog-card relative overflow-hidden rounded-2xl sm:rounded-3xl cursor-pointer col-span-1 aspect-[2/3] lg:aspect-[4/3]"
                     onclick="openLightbox(19)">
+                    <div class="card-shimmer"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-sky-100 via-sky-50/80 to-white"></div>
                     <img src="https://i.ibb.co.com/fzf3zNR0/Whats-App-Image-2026-09-22-at-13-19-46.jpg"
-                        alt="Produk Ukaisya 20" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/5 to-transparent"></div>
+                        alt="Produk jadi Ukaisya" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <div class="card-gradient-hover absolute inset-0 bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent"></div>
                     <div class="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-                        <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-sky-500/10 text-sky-600 border-sky-200/50">Produk Jadi</span>
+                        <span class="badge-shine px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold backdrop-blur-xl border shadow-sm bg-sky-500/10 text-sky-600 border-sky-200/50">Produk Jadi</span>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-2 sm:p-3 lg:hidden">
-                        <div class="rounded-lg bg-white/70 backdrop-blur-xl border border-white/40 p-2 shadow-sm">
+                        <div class="rounded-xl bg-white/80 backdrop-blur-xl border border-white/50 p-2 shadow-sm">
                             <h3 class="font-semibold text-gray-900 text-[10px] sm:text-xs leading-tight">Produk Jadi Ukaisya</h3>
                         </div>
                     </div>
                     <div class="absolute bottom-0 inset-x-0 z-10 p-4 lg:p-5 hidden lg:block">
-                        <div class="card-overlay-desktop rounded-2xl bg-white/60 backdrop-blur-2xl border border-white/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-                            <h3 class="font-semibold text-gray-900 text-sm mb-1">Produk Jadi Ukaisya</h3>
-                            <p class="text-[11px] text-gray-400">Gula merah tebu berkualitas dari Kediri</p>
+                        <div class="card-overlay-desktop rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">Produk Jadi Ukaisya</h3>
+                            <p class="text-[11px] text-gray-500">Gula merah tebu berkualitas dari Kediri</p>
                         </div>
                     </div>
                 </div>
 
             </div>
 
+            <!-- ===== IMAGE COUNTER ===== -->
+            <div class="flex items-center justify-center mt-8 sm:mt-10 gap-2">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 backdrop-blur-xl border border-gray-200/50 shadow-sm">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="text-xs font-medium text-gray-500 image-counter">20 Foto Dokumentasi</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- ===== Lightbox ===== -->
+    <!-- ===== LIGHTBOX ===== -->
     <div id="lightbox" class="fixed inset-0 z-50 hidden">
         <!-- Backdrop -->
-        <div class="lightbox-backdrop absolute inset-0 bg-black/50" onclick="closeLightbox()"></div>
+        <div class="lightbox-backdrop absolute inset-0 bg-black/60" onclick="closeLightbox()"></div>
+
         <!-- Content -->
         <div class="absolute inset-0 flex items-center justify-center p-5 pointer-events-none">
             <div id="lightbox-card"
-                class="relative w-full max-w-sm sm:max-w-lg aspect-[3/4] sm:aspect-[4/3] rounded-3xl overflow-hidden pointer-events-auto shadow-[0_32px_64px_rgba(0,0,0,0.25)] transform scale-90 opacity-0 transition-all duration-300">
+                class="relative w-full max-w-sm sm:max-w-lg aspect-[3/4] sm:aspect-[4/3] rounded-3xl overflow-hidden pointer-events-auto shadow-[0_32px_64px_rgba(0,0,0,0.3)] transform scale-90 opacity-0 transition-all duration-400"
+                style="transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);">
                 <!-- Fallback bg -->
                 <div class="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-white"></div>
                 <!-- Image -->
@@ -642,21 +817,24 @@
                     <span id="lightbox-badge"
                         class="px-3 py-1 rounded-full text-[10px] font-semibold backdrop-blur-xl border shadow-sm"></span>
                 </div>
+                <!-- Image counter -->
+                <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+                    <span id="lightbox-counter" class="image-counter px-3 py-1 rounded-full text-[10px] font-semibold text-white/90 bg-black/25 backdrop-blur-xl border border-white/10"></span>
+                </div>
                 <!-- Info panel -->
                 <div class="absolute bottom-0 inset-x-0 z-10 p-5">
-                    <div
-                        class="rounded-2xl bg-white/80 backdrop-blur-2xl border border-white/50 p-5 shadow-[0_16px_48px_rgba(0,0,0,0.10)]">
+                    <div class="rounded-2xl bg-white/80 backdrop-blur-2xl border border-white/50 p-5 shadow-[0_16px_48px_rgba(0,0,0,0.10)]">
                         <h3 id="lightbox-title" class="text-lg font-bold text-gray-900 mb-1"></h3>
                         <p id="lightbox-desc" class="text-xs text-gray-500 mb-4"></p>
                         <a id="lightbox-wa" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full px-5 py-2.5
                  bg-gradient-to-r from-[#25D366] to-[#20BD5A]
                  text-sm font-semibold text-white shadow-md
-                 active:scale-[0.97] transition-all">
+                 active:scale-[0.97] transition-all hover:shadow-lg hover:shadow-green-500/20">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
-                            Tanya Harga
+                            Konsultasi Lebih Lanjut
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M7 17L17 7M17 7H7M17 7v10" />
@@ -666,7 +844,7 @@
                 </div>
                 <!-- Close button -->
                 <button onclick="closeLightbox()"
-                    class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 text-white active:scale-95 transition-all"
+                    class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 text-white active:scale-95 transition-all hover:bg-white/30"
                     aria-label="Tutup">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -675,178 +853,89 @@
                 </button>
             </div>
         </div>
+
+        <!-- Navigation Buttons -->
+        <button id="lightbox-prev" onclick="navigateLightbox(-1)"
+            class="lightbox-nav-btn absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-[60] p-3 sm:p-4 rounded-full text-white"
+            aria-label="Sebelumnya">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <button id="lightbox-next" onclick="navigateLightbox(1)"
+            class="lightbox-nav-btn absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-[60] p-3 sm:p-4 rounded-full text-white"
+            aria-label="Berikutnya">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
     </div>
 
-    <!-- ===== Lightbox Script ===== -->
+    <!-- ===== SCRIPTS ===== -->
     <script>
-        const galleryItems = [
-            {
-                name: "Mesin Pengolahan Utama",
-                category: "Mesin Utama",
-                desc: "Drum mixer, wajan stainless steel, dan panel kontrol di lantai pabrik",
-                image: "https://i.ibb.co.com/DHhPr8DL/f-Whats-App-Image-2026-09-03-at-20-45-31.jpg",
-                badgeClass: "bg-orange-500/10 text-orange-600 border-orange-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal mesin pengolahan gula merah"
-            },
-            {
-                name: "Fabrikasi Rangka Baja",
-                category: "Konstruksi",
-                desc: "Pengelasan dan pengiriman struktur baja untuk pabrik",
-                image: "https://i.ibb.co.com/B25xYqV9/Whats-App-Image-2026-09-03-at-20-45-25.jpg",
-                badgeClass: "bg-amber-500/10 text-amber-700 border-amber-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal fasilitas pabrik"
-            },
-            {
-                name: "Oven Pengering Stainless Steel",
-                category: "Pengeringan",
-                desc: "Kabinet pengering multi-rak stainless steel untuk proses pengeringan gula",
-                image: "https://i.ibb.co.com/212G7565/Whats-App-Image-2026-09-03-at-20-45-26-1.jpg",
-                badgeClass: "bg-yellow-500/10 text-yellow-700 border-yellow-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal proses pengeringan"
-            },
-            {
-                name: "Tim Produksi Ukaisya",
-                category: "Tim Kami",
-                desc: "Tim operasional pabrik siap melayani kebutuhan produksi Anda",
-                image: "https://i.ibb.co.com/ZRrcDGMv/Whats-App-Image-2026-09-03-at-20-45-26.jpg",
-                badgeClass: "bg-stone-500/10 text-stone-700 border-stone-300/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal kapasitas produksi"
-            },
-            {
-                name: "Logistik Bahan Baku",
-                category: "Logistik",
-                desc: "Pengangkutan material struktur baja ke lokasi pabrik Kediri",
-                image: "https://i.ibb.co.com/QvPdCdRr/Whats-App-Image-2026-09-03-at-20-45-27-1.jpg",
-                badgeClass: "bg-green-500/10 text-green-600 border-green-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal logistik dan distribusi"
-            },
-            {
-                name: "Kolaborasi Universitas Negeri Malang",
-                category: "Kemitraan",
-                desc: "Program mekanisasi agroindustri gula merah bersama UM Malang",
-                image: "https://i.ibb.co.com/Dg8SR7bQ/Whats-App-Image-2026-09-03-at-20-45-27.jpg",
-                badgeClass: "bg-rose-500/10 text-rose-600 border-rose-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal program kemitraan"
-            },
-            {
-                name: "Lini Produksi Lengkap",
-                category: "Fasilitas",
-                desc: "Wajan pendingin, mesin penggiling, dan drum mixer dalam satu lini",
-                image: "https://i.ibb.co.com/Fb3HSHQr/Whats-App-Image-2026-09-03-at-20-45-28.jpg",
-                badgeClass: "bg-sky-500/10 text-sky-600 border-sky-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal fasilitas produksi"
-            },
-            {
-                name: "Komponen Mesin Giling",
-                category: "Mesin",
-                desc: "Bearing block dan roda gigi besi cor untuk mesin penggiling tebu",
-                image: "https://i.ibb.co.com/8ndFjxPf/Whats-App-Image-2026-09-03-at-20-45-29-1.jpg",
-                badgeClass: "bg-violet-500/10 text-violet-600 border-violet-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal spesifikasi mesin"
-            },
-            {
-                name: "Mesin Penggiling Tebu",
-                category: "Penggilingan",
-                desc: "Mesin crusher tebu heavy-duty dengan roda gigi dan belt pulley",
-                image: "https://i.ibb.co.com/zV3bMt9y/Whats-App-Image-2026-09-03-at-20-45-30.jpg",
-                badgeClass: "bg-teal-500/10 text-teal-600 border-teal-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal proses penggilingan tebu"
-            },
-            {
-                name: "Pompa Sirkulasi Nira",
-                category: "Utilitas",
-                desc: "Pompa elektrik untuk sirkulasi nira tebu selama proses produksi",
-                image: "https://i.ibb.co.com/Fq3RMmC0/Whats-App-Image-2026-09-22-at-13-18-45.jpg",
-                badgeClass: "bg-cyan-500/10 text-cyan-600 border-cyan-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal peralatan produksi"
-            },
-            {
-                name: "Mesin Pengayak Gula",
-                category: "Pengayakan",
-                desc: "Vibrating screen stainless steel untuk seleksi ukuran butiran gula",
-                image: "https://i.ibb.co.com/fzf3zNR0/Whats-App-Image-2026-09-22-at-13-19-46.jpg",
-                badgeClass: "bg-emerald-500/10 text-emerald-600 border-emerald-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal proses pengayakan"
-            },
-            {
-                name: "Gula Merah Bathok",
-                category: "Produk",
-                desc: "Gula merah cetak bathok siap kemas — hasil produksi pabrik Kediri",
-                image: "https://i.ibb.co.com/35X4dJwf/Whats-App-Image-2026-09-22-at-13-20-32.jpg",
-                badgeClass: "bg-lime-500/10 text-lime-700 border-lime-200/50",
-                waText: "Halo Ukaisya, saya ingin pesan Gula Merah Bathok"
-            },
-            {
-                name: "Interior Pabrik",
-                category: "Fasilitas",
-                desc: "Ruang produksi bersih dengan kabinet pengering dan area penyimpanan",
-                image: "https://i.ibb.co.com/60d7pFNL/Whats-App-Image-2026-09-22-at-13-20-34.jpg",
-                badgeClass: "bg-amber-500/10 text-amber-700 border-amber-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal fasilitas produksi"
-            },
-            {
-                name: "Inspeksi Mesin Pengayak",
-                category: "Quality Control",
-                desc: "Pengecekan komponen elektrik mesin pengayak oleh supervisor",
-                image: "https://i.ibb.co.com/gH5p03p/Whats-App-Image-2026-09-22-at-13-20-37.jpg",
-                badgeClass: "bg-orange-500/10 text-orange-600 border-orange-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal standar kualitas"
-            },
-            {
-                name: "Tim Bersama Mesin Pengayak",
-                category: "Tim & Alat",
-                desc: "Manajer pabrik bersama mesin vibrating sifter di depan banner program",
-                image: "https://i.ibb.co.com/4g27LhXy/Whats-App-Image-2026-09-22-at-13-20-41.jpg",
-                badgeClass: "bg-rose-500/10 text-rose-600 border-rose-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal tim produksi"
-            },
-            {
-                name: "Mesin Pengayak Full View",
-                category: "Pengayakan",
-                desc: "Tampak penuh mesin vibrating screen — hopper, deck, dan motor penggerak",
-                image: "https://i.ibb.co.com/VYv1tRXW/Whats-App-Image-2026-09-22-at-13-20-59.jpg",
-                badgeClass: "bg-indigo-500/10 text-indigo-600 border-indigo-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu spesifikasi mesin pengayak"
-            },
-            {
-                name: "Inspeksi Motor Penggerak",
-                category: "Maintenance",
-                desc: "Pengecekan motor drive dan rangka bawah mesin pengayak",
-                image: "https://i.ibb.co.com/SkyhYL8/Whats-App-Image-2026-09-22-at-13-21-08.jpg",
-                badgeClass: "bg-yellow-500/10 text-yellow-700 border-yellow-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal perawatan mesin"
-            },
-            {
-                name: "Gula Merah Bathok Siap Timbang",
-                category: "Produk",
-                desc: "Gula merah cetak bathok di meja timbang — siap kemas dan distribusi",
-                image: "https://i.ibb.co.com/S4NtQrm5/Whats-App-Image-2026-09-22-at-13-21-12.jpg",
-                badgeClass: "bg-green-500/10 text-green-600 border-green-200/50",
-                waText: "Halo Ukaisya, saya ingin pesan Gula Merah Bathok"
-            },
-            {
-                name: "Mesin Pengayak Gula",
-                category: "Pengayakan",
-                desc: "Vibrating screen stainless steel untuk seleksi ukuran butiran gula",
-                image: "https://i.ibb.co.com/fzf3zNR0/Whats-App-Image-2026-09-22-at-13-19-46.jpg",
-                badgeClass: "bg-sky-500/10 text-sky-600 border-sky-200/50",
-                waText: "Halo Ukaisya, saya ingin tahu soal mesin pengayak"
+        // ===== SCROLL REVEAL WITH STAGGER =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const cards = document.querySelectorAll('.catalog-card');
+                    const index = Array.from(cards).indexOf(entry.target);
+                    const delay = Math.min(index * 60, 600); // stagger with max cap
+
+                    setTimeout(() => {
+                        entry.target.classList.add('revealed');
+                    }, delay);
+
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.catalog-card').forEach(card => {
+            revealObserver.observe(card);
+        });
+
+        // ===== GALLERY DATA — auto-generated from DOM =====
+        let currentLightboxIndex = 0;
+
+        const galleryItems = Array.from(document.querySelectorAll('.catalog-card')).map((card, index) => {
+            card.setAttribute('onclick', `openLightbox(${index})`);
+
+            const img = card.querySelector('img');
+            const overlay = card.querySelector('.card-overlay-desktop');
+            const title = overlay ? overlay.querySelector('h3').textContent.trim() : '';
+            const desc = overlay && overlay.querySelector('p') ? overlay.querySelector('p').textContent.trim() : '';
+            const badge = card.querySelector('span');
+            const category = badge ? badge.textContent.trim() : '';
+
+            let badgeClass = 'bg-gray-500/10 text-gray-600 border-gray-200/50';
+            if (badge) {
+                const classes = badge.className.split(' ');
+                badgeClass = classes.filter(c =>
+                    (c.startsWith('bg-') && !c.includes('blur')) ||
+                    (c.startsWith('text-') && !c.includes('[')) ||
+                    c.startsWith('border-')
+                ).join(' ');
             }
-        ];
 
+            return {
+                name: title,
+                category: category,
+                desc: desc,
+                image: img ? img.src : '',
+                badgeClass: badgeClass,
+                waText: "Halo Ukaisya, saya tertarik dan ingin tahu lebih lanjut mengenai " + title
+            };
+        });
+
+        // ===== LIGHTBOX FUNCTIONS =====
         function openLightbox(index) {
-            const item = galleryItems[index];
-            if (!item) return;
-
-            document.getElementById('lightbox-image').src = item.image;
-            document.getElementById('lightbox-image').alt = item.name;
-            document.getElementById('lightbox-title').textContent = item.name;
-            document.getElementById('lightbox-desc').textContent = item.desc;
-            document.getElementById('lightbox-wa').href = `https://wa.me/6281398371777?text=${encodeURIComponent(item.waText)}`;
-
-            const badge = document.getElementById('lightbox-badge');
-            badge.textContent = item.category;
-            badge.className = `px-3 py-1 rounded-full text-[10px] font-semibold backdrop-blur-xl border shadow-sm ${item.badgeClass}`;
+            currentLightboxIndex = index;
+            updateLightboxContent(index);
 
             const lightbox = document.getElementById('lightbox');
             const card = document.getElementById('lightbox-card');
@@ -859,6 +948,42 @@
             });
         }
 
+        function updateLightboxContent(index) {
+            const item = galleryItems[index];
+            if (!item) return;
+
+            document.getElementById('lightbox-image').src = item.image;
+            document.getElementById('lightbox-image').alt = item.name;
+            document.getElementById('lightbox-title').textContent = item.name;
+            document.getElementById('lightbox-desc').textContent = item.desc;
+            document.getElementById('lightbox-wa').href = `https://wa.me/6281398371777?text=${encodeURIComponent(item.waText)}`;
+            document.getElementById('lightbox-counter').textContent = `${index + 1} / ${galleryItems.length}`;
+
+            const badge = document.getElementById('lightbox-badge');
+            badge.textContent = item.category;
+            badge.className = `px-3 py-1 rounded-full text-[10px] font-semibold backdrop-blur-xl border shadow-sm ${item.badgeClass}`;
+        }
+
+        function navigateLightbox(direction) {
+            const card = document.getElementById('lightbox-card');
+
+            // Brief fade transition
+            card.style.opacity = '0';
+            card.style.transform = direction > 0 ? 'translateX(30px) scale(0.98)' : 'translateX(-30px) scale(0.98)';
+
+            setTimeout(() => {
+                currentLightboxIndex = (currentLightboxIndex + direction + galleryItems.length) % galleryItems.length;
+                updateLightboxContent(currentLightboxIndex);
+
+                card.style.transform = direction > 0 ? 'translateX(-30px) scale(0.98)' : 'translateX(30px) scale(0.98)';
+
+                requestAnimationFrame(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0) scale(1)';
+                });
+            }, 200);
+        }
+
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox');
             const card = document.getElementById('lightbox-card');
@@ -867,13 +992,36 @@
             setTimeout(() => {
                 lightbox.classList.add('hidden');
                 document.body.style.overflow = '';
-            }, 300);
+                // Reset card transform
+                card.style.transform = '';
+            }, 350);
         }
 
-        // Close on Escape key
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('hidden')) return;
+
             if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
         });
+
+        // Swipe support for mobile lightbox
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.getElementById('lightbox-card').addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.getElementById('lightbox-card').addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                navigateLightbox(diff > 0 ? 1 : -1);
+            }
+        }, { passive: true });
     </script>
 
 </body>

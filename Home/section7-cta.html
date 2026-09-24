@@ -1,139 +1,249 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ukaisya — Hubungi Kami</title>
 
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { 'body': ['"Plus Jakarta Sans"', 'sans-serif'] },
+          fontFamily: {
+            'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            'ukaisya': {
+              orange: '#ff6b00',
+              dark: '#0B1120', /* Deeper, richer midnight blue */
+            }
+          },
+          animation: {
+            'blob': 'blob 10s infinite',
+            'shimmer': 'shimmer 4s linear infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '200% center' },
+              '100%': { backgroundPosition: '-200% center' },
+            }
+          }
         }
       }
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      background: #ffffff;
-      color: #1f2937;
+    body { background: transparent; color: #1f2937; }
+
+    /* The floating lines animation */
+    @keyframes floatLine1 {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.4;}
+      50% { transform: translateY(-30px) rotate(2deg) scale(1.05); opacity: 0.8;}
+      100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.4;}
+    }
+    @keyframes floatLine2 {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.3;}
+      50% { transform: translateY(30px) rotate(-2deg) scale(1.05); opacity: 0.6;}
+      100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.3;}
     }
 
+    .line-1 { animation: floatLine1 14s ease-in-out infinite; }
+    .line-2 { animation: floatLine2 18s ease-in-out infinite reverse; }
+
+    /* Modern Buttons */
+    .btn-glow {
+      position: relative;
+    }
+    .btn-glow::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #22c55e, #10b981, #22c55e);
+      z-index: -1;
+      filter: blur(12px);
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+    .btn-glow:hover::before {
+      opacity: 1;
+      filter: blur(16px);
+    }
+    
     .cta-btn {
-      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .cta-btn:active {
+      transform: scale(0.97);
     }
 
-    .cta-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.2);
+    /* Premium Glass Social Cards */
+    .social-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+    }
+    .social-card:hover {
+      transform: translateY(-8px);
+      background: #ffffff;
+      box-shadow: 0 25px 50px -12px rgba(255, 107, 0, 0.15);
+      border-color: rgba(255, 107, 0, 0.2);
+    }
+    
+    .social-card:hover .icon-box.shopee { background: #fff7ed; color: #f97316; transform: scale(1.15) rotate(8deg); }
+    .social-card:hover .icon-box.blibli { background: #eff6ff; color: #3b82f6; transform: scale(1.15) rotate(-8deg); }
+    .social-card:hover .icon-box.ig { background: #fdf2f8; color: #ec4899; transform: scale(1.15) rotate(8deg); }
+    
+    .icon-box {
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .link-row {
-      transition: all 0.25s ease;
-    }
-
-    .link-row:hover {
-      background-color: #f9fafb;
-      padding-left: 1.25rem;
+    /* Text gradient animation */
+    .animate-text-gradient {
+      background-size: 200% auto;
+      animation: textShimmer 4s linear infinite;
     }
   </style>
 </head>
 
-<body class="font-body antialiased">
+<body class="font-body antialiased relative overflow-hidden">
 
   <!-- ============================================ -->
   <!-- SECTION 7: FINAL CTA                         -->
   <!-- ============================================ -->
-  <section id="kontak" class="py-20 lg:py-28 bg-white">
-    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+  <section id="kontak" class="py-24 lg:py-32 bg-transparent relative z-10">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
 
-      <!-- Main CTA Banner -->
-      <div class="relative rounded-3xl overflow-hidden"
-        style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
-
-        <!-- Subtle grain overlay -->
-        <div class="absolute inset-0 opacity-[0.03]"
-          style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');">
+      <!-- Main Elegant CTA Banner -->
+      <div class="relative rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden bg-ukaisya-dark shadow-2xl group border border-white/10">
+        
+        <!-- Deep Gradient Mesh Background (Animated) -->
+        <div class="absolute inset-0 opacity-80 mix-blend-screen pointer-events-none">
+          <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob"></div>
+          <div class="absolute bottom-0 left-0 w-96 h-96 bg-orange-600 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob" style="animation-delay: 2s;"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob" style="animation-delay: 4s;"></div>
         </div>
 
-        <div class="relative z-10 px-8 py-16 sm:px-12 sm:py-20 lg:px-20 lg:py-24">
+        <!-- Floating SVG Lines (Garis Melayang) -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center mix-blend-overlay">
+          
+          <!-- Line 1: Orange/Yellow Tint -->
+          <svg class="line-1 absolute w-[150%] h-[150%] stroke-orange-400" fill="none" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(251,146,60,0.5));">
+            <path d="M-100,550 C200,350 400,750 700,450 C1000,150 1100,450 1300,250" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M-100,600 C200,400 400,800 700,500 C1000,200 1100,500 1300,300" stroke-width="0.75" stroke-linecap="round" opacity="0.6" />
+          </svg>
+          
+          <!-- Line 2: Blue/Cyan Tint -->
+          <svg class="line-2 absolute w-[150%] h-[150%] stroke-blue-300" fill="none" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(147,197,253,0.5));">
+            <path d="M-100,250 C300,350 500,-50 800,250 C1100,550 1200,350 1300,450" stroke-width="2" stroke-linecap="round" />
+            <path d="M-100,300 C300,400 500,0 800,300 C1100,600 1200,400 1300,500" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+          </svg>
 
-          <div class="max-w-2xl">
-            <p class="text-orange-400 text-sm font-semibold uppercase tracking-widest mb-5">Hubungi Kami</p>
+        </div>
 
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
-              Tertarik bekerja sama? <br>Mari ngobrol langsung. kami siap membantu lewat WhatsApp.
-            </h2>
+        <!-- Subtle noise texture for premium matte look -->
+        <div class="absolute inset-0 opacity-[0.04]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E'); mix-blend-mode: overlay;"></div>
 
+        <div class="relative z-10 px-6 py-20 sm:px-16 sm:py-28 lg:px-24 text-center">
 
-            <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-4">
+          <!-- Label -->
+          <div class="inline-flex items-center gap-2.5 bg-white/5 hover:bg-white/10 transition-colors text-orange-300 text-xs font-bold uppercase tracking-[0.2em] px-5 py-2.5 rounded-full mb-8 border border-white/10 backdrop-blur-md cursor-default shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+            </span>
+            Siap Berkolaborasi?
+          </div>
+
+          <!-- Main Heading -->
+          <h2 class="text-4xl sm:text-5xl lg:text-[60px] font-extrabold text-white tracking-tight leading-[1.1] mb-8 max-w-4xl mx-auto">
+            Tingkatkan Kualitas Produk Anda Bersama <br class="hidden lg:block">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-400 animate-text-gradient">Ukaisya</span>.
+          </h2>
+          
+          <p class="text-lg text-blue-100/70 max-w-2xl mx-auto mb-14 font-medium leading-relaxed">
+            Diskusikan kebutuhan suplai gula merah premium untuk industri, HORECA, atau toko ritel Anda secara langsung dengan tim kami.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-5 justify-center">
+            
+            <div class="btn-glow">
               <a href="https://wa.me/6281398371777?text=Halo%20Ukaisya%2C%20saya%20ingin%20berdiskusi%20tentang%20kebutuhan%20gula%20merah."
-                target="_blank"
-                class="cta-btn inline-flex items-center justify-center gap-3 bg-white text-gray-900 font-bold text-sm sm:text-base px-8 py-4 rounded-full">
-                <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                  <path
-                    d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.527 5.862L.058 23.66a.5.5 0 00.632.632l5.798-1.469A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.79-.516-5.417-1.487l-.388-.231-4.02 1.018 1.037-3.789-.253-.403A9.96 9.96 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+                 target="_blank"
+                 class="cta-btn relative flex items-center justify-center gap-3 bg-gradient-to-r from-[#25D366] to-[#1DA851] text-white font-bold text-base px-10 py-5 rounded-full border border-[#25D366]/50 overflow-hidden group">
+                
+                <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                <span class="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity"></span>
+                
+                <svg class="w-6 h-6 relative z-10 drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.527 5.862L.058 23.66a.5.5 0 00.632.632l5.798-1.469A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.79-.516-5.417-1.487l-.388-.231-4.02 1.018 1.037-3.789-.253-.403A9.96 9.96 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
                 </svg>
-                Hubungi via WhatsApp
-              </a>
-              <a href="https://ukaisya.id/toko-online/"
-                class="cta-btn inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base px-8 py-4 rounded-full border border-white/20">
-                Kunjungi Toko Online
+                <span class="relative z-10 drop-shadow-md">Konsultasi via WhatsApp</span>
               </a>
             </div>
+
+            <a href="https://ukaisya.id/toko-online/"
+               class="cta-btn inline-flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 text-white font-bold text-base px-10 py-5 rounded-full border border-white/20 backdrop-blur-xl transition-all">
+              Kunjungi Katalog B2B
+            </a>
           </div>
 
         </div>
       </div>
 
-      <!-- Simple Links Below -->
-      <div class="mt-10 border border-gray-100 rounded-2xl divide-y divide-gray-100 overflow-hidden">
-
-        <a href="https://id.shp.ee/j2yz3W7" class="link-row flex items-center justify-between px-6 py-5 group">
-          <div>
-            <p class="text-sm font-bold text-gray-900 group-hover:text-orange-600 transition-colors">Shopee</p>
-            <p class="text-xs text-gray-400 mt-0.5">Beli di Shopee Official</p>
+      <!-- Elevated Quick Links Grid -->
+      <div class="mt-8 lg:mt-12 grid sm:grid-cols-3 gap-5 max-w-4xl mx-auto relative z-20">
+        
+        <!-- Shopee -->
+        <a href="https://id.shp.ee/j2yz3W7" target="_blank" class="social-card flex items-center p-5 lg:p-6 rounded-[1.25rem] group cursor-pointer">
+          <div class="icon-box shopee w-14 h-14 rounded-2xl bg-gray-50/80 backdrop-blur-sm text-gray-400 flex items-center justify-center mr-5 border border-gray-200/50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
           </div>
-          <svg class="w-4 h-4 text-gray-300 group-hover:text-orange-500 transition-colors" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
+          <div>
+            <p class="text-[16px] font-extrabold text-gray-900 leading-tight">Shopee</p>
+            <p class="text-[13px] font-semibold text-gray-500 mt-1 group-hover:text-orange-500 transition-colors">Official Store</p>
+          </div>
         </a>
 
-        <a href="https://blibli.onelink.me/GNtk/48ug3rxu" target="_blank"
-          class="link-row flex items-center justify-between px-6 py-5 group">
-          <div>
-            <p class="text-sm font-bold text-gray-900 group-hover:text-orange-600 transition-colors">Blibli</p>
-            <p class="text-xs text-gray-400 mt-0.5">Beli di Blibli.com</p>
+        <!-- Blibli -->
+        <a href="https://blibli.onelink.me/GNtk/48ug3rxu" target="_blank" class="social-card flex items-center p-5 lg:p-6 rounded-[1.25rem] group cursor-pointer">
+          <div class="icon-box blibli w-14 h-14 rounded-2xl bg-gray-50/80 backdrop-blur-sm text-gray-400 flex items-center justify-center mr-5 border border-gray-200/50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
           </div>
-          <svg class="w-4 h-4 text-gray-300 group-hover:text-orange-500 transition-colors" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
+          <div>
+            <p class="text-[16px] font-extrabold text-gray-900 leading-tight">Blibli.com</p>
+            <p class="text-[13px] font-semibold text-gray-500 mt-1 group-hover:text-blue-500 transition-colors">Belanja Grosir</p>
+          </div>
         </a>
 
-        <a href="https://www.instagram.com/ukaisya.official/"
-          class="link-row flex items-center justify-between px-6 py-5 group">
-          <div>
-            <p class="text-sm font-bold text-gray-900 group-hover:text-orange-600 transition-colors">Instagram</p>
-            <p class="text-xs text-gray-400 mt-0.5">@ukaisya.official</p>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/ukaisya.official/" target="_blank" class="social-card flex items-center p-5 lg:p-6 rounded-[1.25rem] group cursor-pointer">
+          <div class="icon-box ig w-14 h-14 rounded-2xl bg-gray-50/80 backdrop-blur-sm text-gray-400 flex items-center justify-center mr-5 border border-gray-200/50">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           </div>
-          <svg class="w-4 h-4 text-gray-300 group-hover:text-orange-500 transition-colors" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
+          <div>
+            <p class="text-[16px] font-extrabold text-gray-900 leading-tight">Instagram</p>
+            <p class="text-[13px] font-semibold text-gray-500 mt-1 group-hover:text-pink-500 transition-colors">@ukaisya.official</p>
+          </div>
         </a>
 
       </div>
@@ -142,5 +252,4 @@
   </section>
 
 </body>
-
 </html>
