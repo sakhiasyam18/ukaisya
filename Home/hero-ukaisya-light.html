@@ -35,11 +35,21 @@
     }
   </script>
 
-  <!-- Google Fonts -->
+  <!-- Preconnect & DNS-Prefetch Hints for Fast Loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="https://i.ibb.co.com">
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-display: swap;
+    }
+  </style>
 
   <style>
     html.lenis,
@@ -131,7 +141,7 @@
         <!-- CTA Buttons -->
         <div
           class="motion-hero-text flex flex-col sm:flex-row w-full justify-center items-center gap-3 sm:gap-4 pt-4 px-4 sm:px-0">
-          <a href="https://ukaisya.id/toko-online/"
+          <a href="https://ukaisya.id/katalog/"
             class="btn-orange text-white font-bold py-3.5 px-8 sm:py-4 rounded-full text-sm sm:text-base lg:text-lg shadow-glow w-full sm:w-auto">
             Lihat Produk
           </a>
@@ -171,9 +181,13 @@
       <!-- Hero Image / Banner Hook -->
       <div
         class="mt-12 sm:mt-16 lg:mt-24 relative mx-auto max-w-5xl rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl motion-hero-image">
-        <!-- Using a placeholder image that represents brown sugar / sugarcane aesthetic -->
         <img src="https://i.ibb.co.com/S4NtQrm5/Whats-App-Image-2026-09-22-at-13-21-12.jpg"
           alt="Ukaisya Gula Merah Tebu Premium Banner"
+          width="1200"
+          height="514"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
           class="w-full h-auto aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] object-cover" />
 
         <!-- Decorative Overlay Gradient -->
